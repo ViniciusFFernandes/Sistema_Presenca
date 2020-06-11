@@ -33,7 +33,8 @@
               $tipo = 'info';
             }
             ?>
-            <div class="alert alert-<?= $tipo ?>">
+            <div class="alert alert-<?= $tipo ?> alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
               <?= $_REQUEST['msg'] ?>
             </div>
           <?php } 
@@ -65,10 +66,13 @@
                   </div>
                 </div>
                 <div class="col-12 col-sm-12" align="center">
-                  <button type="submit" class="btn btn-primary">Gravar</button>
+                  <button type="submit" class="btn btn-success">Gravar</button>
                   <?php
                     if($reg['alu_id'] > 0){ ?>
                       <button type="button" class="btn btn-danger" onclick="excluirPessoa()">Excluir</button>
+                      <a href="../_Cadastros/alunos_edita.php">
+                        <button type="button" class="btn btn-primary">Novo</button>
+                      </a>
                   <?php  
                     }
                   ?>

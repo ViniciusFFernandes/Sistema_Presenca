@@ -22,6 +22,13 @@ Create table alunos (
 	ev_hora_fim time,
  Primary Key (ev_id)) ENGINE = INNODB;
 
+ Create table presencas_eventos (
+	prev_id Int NOT NULL AUTO_INCREMENT,
+	previ_data_hora timestamp,
+	prev_alu_id int,
+	prev_ev_id int,
+ Primary Key (prev_id)) ENGINE = INNODB;
+
 
 -- Alter table Alunos add Foreign Key (sis_id) references Sistema (sis_id) on delete  restrict on update  restrict;
 -- Alter table Palestras add Foreign Key (sis_id) references Sistema (sis_id) on delete  restrict on update  restrict;

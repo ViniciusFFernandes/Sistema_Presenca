@@ -80,4 +80,17 @@
         header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "&msg=Alunos%20incluidos%20no%20evento");
         exit;
     }
+
+    if($_POST['operacao'] == 'excluirMatricula'){
+        $sql = "DELETE FROM presencas_eventos WHERE prev_id = " . $_POST['prev_id'];
+        //
+        $db->executaSQL($sql);
+        //
+        if($db->erro()){
+            echo "Erro";
+        }else{
+            echo "Ok";
+        }
+        exit;
+    }
 ?>

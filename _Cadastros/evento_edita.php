@@ -19,6 +19,18 @@
         operacao.value = 'Excluir';
         form.submit();
       }
+
+      function excluirMatricula(prev_id){
+        $.post("evento_grava.php", {operacao: 'excluirMatricula', prev_id: prev_id},
+          function(data){
+            if(data == 'Ok'){
+              alert("Matricula excluida com sucesso!");
+              $("#matricula_" + prev_id).remove();
+            }else{
+              alert("Erro ao excluir matricula!");
+            }
+          }, "html");
+      }
     </script>  
     <body>
         <?php
@@ -156,14 +168,16 @@
                       <tr class="table-active">
                         <th>Nome</th>
                         <th>Curso</th>
+                        <th width="5%">&nbsp;</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
                       foreach($resMatriculas AS $regMatriculas){ ?>
-                        <tr>
+                        <tr id="matricula_<?= $regMatriculas['prev_id'] ?>">
                           <td><?= $regMatriculas['alu_nome'] ?></td>
                           <td><?= $regMatriculas['alu_curso'] ?></td>
+                          <td><img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)"></td>
                         </tr>
                       <?php  
                       }

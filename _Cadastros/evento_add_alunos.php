@@ -42,10 +42,8 @@
             	<?php
 					$sql = "SELECT * 
                             FROM alunos 
-                            WHERE (SELECT IFNULL(COUNT(1), 0) 
-                                    FROM presencas_eventos 
-                                    WHERE prev_alu_id = alunos.alu_id 
-                                        AND prev_ev_id = " . $_REQUEST['ev_id'] . ") <= 0";
+                             LEFT JOIN presencas_eventos ON (prev_alu_id = alunos.alu_id AND prev_ev_id = " . $_REQUEST['ev_id'] . ")
+                            WHERE prev_id IS NULL";
 					if(!empty($_REQUEST['pesquisaAluno'])){
 						$sql .= " AND (alu_nome LIKE '%" . $_REQUEST['pesquisaAluno'] . "%' OR alu_curso LIKE '%" . $_REQUEST['pesquisaAluno'] . "%')";
 					}

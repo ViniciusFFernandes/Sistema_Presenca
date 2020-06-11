@@ -23,9 +23,8 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?= $diretorioBase ?>_Cadastros/alunos_edita.php">Aluno</a>
-          <a class="dropdown-item" href="tipo-evento.php">Tipo de Evento</a>
-          <a class="dropdown-item" href="evento.php">Evento</a>
-          <a class="dropdown-item" href="presenca.php">Presen&ccedil;a</a>
+          <a class="dropdown-item" href="<?= $diretorioBase ?>_Cadastros/tipo_evento_edita.php">Tipo de Evento</a>
+          <a class="dropdown-item" href="<?= $diretorioBase ?>_Cadastros/evento_edita.php">Evento</a>
         </div>
       </li>
       <li class="nav-item dropdown">

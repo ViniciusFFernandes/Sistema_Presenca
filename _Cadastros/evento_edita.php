@@ -119,7 +119,7 @@
                 <?php
                   if($reg['ev_id'] > 0){ ?>
                     <div class="col-12 mt-1" align="center">
-                      <a href="../_Cadastros/evento_add_alunos.php">
+                      <a href="../_Cadastros/evento_add_alunos.php?ev_id=<?= $reg['ev_id'] ?>">
                         <button type="button" class="btn btn-secondary">Adicionar Alunos <img src="../icones/adiciona.png"></button>
                       </a>
                     </div>

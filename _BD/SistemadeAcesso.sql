@@ -1,4 +1,3 @@
-
 Create table alunos (
 	alu_id Int NOT NULL AUTO_INCREMENT,
 	alu_nome Varchar(40),

@@ -61,4 +61,23 @@
             exit;
         }
     }
+
+    if($_POST['operacao'] == 'incluir_alunos'){
+        //print_r($_POST);
+        foreach($_POST['checkbox_alu_id'] AS $alu_id){
+            $sql = "INSERT INTO presencas_eventos (prev_alu_id, prev_ev_id) VALUES( ";
+            $sql .=  $alu_id . ", ";
+            $sql .=  $_POST['ev_id'] . ") ";
+            //
+            $db->executaSQL($sql);
+            //
+            if($db->erro()){
+                header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "msg=Erro%20ao%incluir%20alunos%20no%20evento&msgTipo=erro");
+                exit;
+            }
+        }
+        //
+        header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "&msg=Alunos%20incluidos%20no%20evento");
+        exit;
+    }
 ?>

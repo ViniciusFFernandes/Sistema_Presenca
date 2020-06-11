@@ -2,54 +2,50 @@
   include_once("../_BD/conecta_login.php");
 
   if($_POST['operacao'] == 'Gravar'){
-      if($_POST['idalunos'] > 0){
-        $sql = "UPDATE alunos SET ";
-        $sql .= " nome_alu = '" . $_POST['nome_alu'] . "', ";
-        $sql .= " email_alu = '" . $_POST['email_alu'] . "', ";
-        $sql .= " curso_alu = '" . $_POST['curso_alu'] . "'";
-        $sql .= " WHERE alunos_id = " . $_POST['alunos_id'];
+      if($_POST['tiev_id'] > 0){
+        $sql = "UPDATE tipos_eventos SET ";
+        $sql .= " tiev_descricao = '" . $_POST['tiev_descricao'] . "', ";
+        $sql .= " WHERE tiev_id = " . $_POST['tiev_id'];
         //
         $db->executaSQL($sql);
         //
         if($db->erro()){
-            header("Location: ../_Cadastros/alunos_edita.php?msg=Erro%20ao%20editar%20aluno&msgTipo=erro");
+            header("Location: ../_Cadastros/tipo_evento_edita.php?msg=Erro%20ao%20editar%20Tipo%20de%20Evento&msgTipo=erro");
             exit;
         }else{
-            header("Location: ../_Cadastros/alunos_edita.php?msg=Aluno%20alterado%20com%20sucesso&msgTipo=sucesso");
+            header("Location: ../_Cadastros/tipo_evento_edita.php?msg=Tipo%20de%20Evento%20alterado%20com%20sucesso&msgTipo=sucesso");
             exit;
         }
       }else{
-        $sql = "INSERT INTO alunos (nome_alu, email_alu, curso_alu) VALUES( ";
-        $sql .= "'" . $_POST['nome_alu'] . "', ";
-        $sql .= "'" . $_POST['email_alu'] . "', ";
-        $sql .= "'" . $_POST['curso_alu'] . "')";
+        $sql = "INSERT INTO tipos_eventos (tiev_descricao) VALUES( ";
+        $sql .= "'" . $_POST['tiev_descricao'] . "') ";
                 //
         $db->executaSQL($sql);
         //
         if($db->erro()){
-            header("Location: ../_Cadastros/alunos_edita.php?msg=Erro%20ao%20cadastrar%20aluno&msgTipo=erro");
+            header("Location: ../_Cadastros/tipo_evento_edita.php?msg=Erro%20ao%20cadastrar%20Tipo%20de%20Evento&msgTipo=erro");
             exit;
         }else{
-            $sql = "SELECT alunos_id FROM alunos ORDER BY alunos_id DESC LIMIT 1";
+            $sql = "SELECT tiev_id FROM tipos_eventos ORDER BY tiev_id DESC LIMIT 1";
             $reg = $db->retornaUmReg($sql);
-            $alunos_id = $reg['alunos_id'];
+            $tiev_id = $reg['tiev_id'];
             //
-            header("Location: ../_Cadastros/alunos_edita.php?alunos_id=" . $alunos_id . "&msg=Aluno%20cadastrado%20com%20sucesso&msgTipo=sucesso");
+            header("Location: ../_Cadastros/tipo_evento_edita.php?tiev_id=" . $tiev_id . "&msg=Tipo%20de%20Evento%20cadastrado%20com%20sucesso&msgTipo=sucesso");
             exit;
         }
       }
     }
 
     if($_POST['operacao'] == 'Excluir'){
-        $sql = "DELETE FROM alunos WHERE alunos_id = " . $_POST['alunos_id'];
+        $sql = "DELETE FROM tipos_eventos WHERE tiev_id = " . $_POST['tiev_id'];
         //
         $db->executaSQL($sql);
         //
         if($db->erro()){
-            header("Location: ../_Cadastros/alunos_edita.php?alunos_id=" . $_POST['alunos_id'] . "&msg=Erro%20ao%20excluir%20aluno&msgTipo=erro");
+            header("Location: ../_Cadastros/tipo_evento_edita.php?tiev_id=" . $_POST['tiev_id'] . "&msg=Erro%20ao%20excluir%20Tipo%20de%20Evento&msgTipo=erro");
             exit;
         }else{
-            header("Location: ../_Cadastros/alunos_edita.php?msg=Aluno%20excluido%20com%20sucesso");
+            header("Location: ../_Cadastros/tipo_evento_edita.php?msg=Tipo%20de%20Evento%20excluido%20com%20sucesso");
             exit;
         }
     }

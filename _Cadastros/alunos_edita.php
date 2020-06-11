@@ -1,5 +1,6 @@
 <?php
   include_once("../_BD/conecta_login.php");
+  $menuActive = 'Cadastro';
 ?>
 <!doctype html>
 <html lang="pt-br">

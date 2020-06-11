@@ -1,5 +1,6 @@
 <?php
   include_once("../_BD/conecta_login.php");
+  $menuActive = 'Cadastro';
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -127,25 +128,41 @@
                 ?>
             </div>
           </form>
-          <?php  if($_REQUEST['ev_id'] > 0){ ?>
-            <div class="row mt-2">
-              <div class="col-12">
-                <table class="table table-striped p-0" cellpadding="0" cellspacing="0">
-                      <tr class="table-primary text-light">
-                        <td colspan="2" align="center">
-                          <b>Alunos Inscritos</b>
-                        </td>
-                      </tr>
-                      <tr class="table-active">
-                        <td>Nome</td>
-                        <td>Curso</td>
-                      </tr>
-                </table>
+          <?php  
+            if($_REQUEST['ev_id'] > 0){ 
+              $sqlMatriculas = "SELECT * 
+                      FROM presencas_eventos 
+                        JOIN alunos ON (prev_alu_id = alu_id)
+                      WHERE prev_ev_id = " . $reg['ev_id'];
+              $resMatriculas = $db->consultar($sqlMatriculas);
+            ?>
+              <div class="row mt-2">
+                <div class="col-12">
+                  <table class="table table-striped p-0" cellpadding="0" cellspacing="0">
+                        <tr class="table-primary text-light">
+                          <td colspan="2" align="center">
+                            <b>Alunos Inscritos</b>
+                          </td>
+                        </tr>
+                        <tr class="table-active">
+                          <td>Nome</td>
+                          <td>Curso</td>
+                        </tr>
+                        <?php
+                          foreach($resMatriculas AS $regMatriculas){ ?>
+                            <tr>
+                              <td><?= $regMatriculas['alu_nome'] ?></td>
+                              <td><?= $regMatriculas['alu_curso'] ?></td>
+                            </tr>
+                        <?php  
+                          }
+                        ?>
+                  </table>
+                </div>
               </div>
-            </div>
-          <?php } ?>
-          <?php
-              include_once('../rodape.php');
+          <?php 
+            } 
+            include_once('../rodape.php');
           ?>
         </div>
     </body>

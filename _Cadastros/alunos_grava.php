@@ -2,7 +2,7 @@
   include_once("../_BD/conecta_login.php");
 
   if($_POST['operacao'] == 'Gravar'){
-      if($_POST['idalunos'] > 0){
+      if($_POST['alu_id'] > 0){
         $sql = "UPDATE alunos SET ";
         $sql .= " alu_nome = '" . $_POST['alu_nome'] . "', ";
         $sql .= " alu_email = '" . $_POST['alu_email'] . "', ";

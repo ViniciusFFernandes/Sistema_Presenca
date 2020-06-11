@@ -55,6 +55,12 @@
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
+                    <label for="ev_responsavel">Responsalvel</label>
+                    <input type="text" class="form-control" id="ev_responsavel" name="ev_responsavel" placeholder="Digite o Nome do Responsavel" value="<?= $reg['ev_responsavel'] ?>">
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
                     <label for="ev_tiev_id">Tipo do Evento</label>
                     <select class="form-control" id="ev_tiev_id" name="ev_tiev_id">
                       <option value="">Selecione o Tipo</option>
@@ -75,35 +81,29 @@
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="ev_responsavel">Responsalvel</label>
-                    <input type="text" class="form-control" id="ev_responsavel" name="ev_responsavel" placeholder="Digite o Nome do Responsavel" value="<?= $reg['ev_responsavel'] ?>">
-                  </div>
-                </div>
-                <div class="col-12 col-sm-6">
-                  <div class="form-group">
                     <label for="ev_horas">Carga Horaria</label>
                     <input type="number" class="form-control" id="ev_horas" name="ev_horas" placeholder="Digite a Carga Horaria" value="<?= $reg['ev_horas'] ?>">
                   </div>
                 </div>
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-4">
                   <div class="form-group">
                     <label for="ev_data">Data</label>
                     <input type="date" class="form-control" id="ev_data" name="ev_data" value="<?= $reg['ev_data'] ?>">
                   </div>
                 </div>
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-4">
                   <div class="form-group">
                     <label for="ev_hora_inicio">Horaio de Inicio</label>
                     <input type="time" class="form-control" id="ev_hora_inicio" name="ev_hora_inicio" value="<?= $reg['ev_hora_inicio'] ?>">
                   </div>
                 </div>
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-4">
                   <div class="form-group">
                     <label for="ev_hora_fim">Horario de Fim</label>
                     <input type="time" class="form-control" id="ev_hora_fim" name="ev_hora_fim" value="<?= $reg['ev_hora_fim'] ?>">
                   </div>
                 </div>
-                <div class="col-12 col-sm-12" align="center">
+                <div class="col-12" align="center">
                   <button type="submit" class="btn btn-success">Gravar</button>
                   <?php
                     if($reg['ev_id'] > 0){ ?>
@@ -115,11 +115,38 @@
                     }
                   ?>
                 </div>
+                <?php
+                  if($reg['ev_id'] > 0){ ?>
+                    <div class="col-12 mt-1" align="center">
+                      <a href="../_Cadastros/evento_add_alunos.php">
+                        <button type="button" class="btn btn-secondary">Adicionar Alunos <img src="../icones/adiciona.png"></button>
+                      </a>
+                    </div>
+                <?php  
+                  }
+                ?>
             </div>
           </form>
-            <?php
-                include_once('../rodape.php');
-            ?>
+          <?php  if($_REQUEST['ev_id'] > 0){ ?>
+            <div class="row mt-2">
+              <div class="col-12">
+                <table class="table table-striped p-0" cellpadding="0" cellspacing="0">
+                      <tr class="table-primary text-light">
+                        <td colspan="2" align="center">
+                          <b>Alunos Inscritos</b>
+                        </td>
+                      </tr>
+                      <tr class="table-active">
+                        <td>Nome</td>
+                        <td>Curso</td>
+                      </tr>
+                </table>
+              </div>
+            </div>
+          <?php } ?>
+          <?php
+              include_once('../rodape.php');
+          ?>
         </div>
     </body>
 </html>

@@ -6,7 +6,7 @@
         $diretorioBase = "../";
     }
 ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-1">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-1 border border-secondary border-top-0 border-left-0 border-right-0 shadow-lg">
   <a class="navbar-brand" href="<?= $diretorioBase ?>index.php">Controle de Presença</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

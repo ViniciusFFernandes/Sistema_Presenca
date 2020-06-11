@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     </head>
     <script>
-      function excluirPessoa(){
+      function excluirEvento(){
         var operacao = document.getElementById("operacao");
         var form = document.getElementById("form_edita");
         operacao.value = 'Excluir';
@@ -33,42 +33,84 @@
               $tipo = 'info';
             }
             ?>
-            <div class="alert alert-<?= $tipo ?>">
+            <div class="alert alert-<?= $tipo ?> alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
               <?= $_REQUEST['msg'] ?>
             </div>
           <?php } 
-            if($_REQUEST['alunos_id'] > 0){
-              $sql = "SELECT * FROM alunos WHERE alunos_id = " . $_REQUEST['alunos_id'];
+            if($_REQUEST['ev_id'] > 0){
+              $sql = "SELECT * FROM eventos WHERE ev_id = " . $_REQUEST['ev_id'];
               $reg = $db->retornaUmReg($sql);
             }
           ?>
-          <form action="alunos_grava.php" method="post" id="form_edita">
-            <input type="hidden" id="alunos_id" name="alunos_id" value="<?= $reg['alunos_id'] ?>">
+          <form action="evento_grava.php" method="post" id="form_edita">
+            <input type="hidden" id="ev_id" name="ev_id" value="<?= $reg['ev_id'] ?>">
             <input type="hidden" id="operacao" name="operacao" value="Gravar">
             <div class="row" >
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="nome_alu">Nome</label>
-                    <input type="aluno" class="form-control" id="nome_alu" name="nome_alu" placeholder="Digite o Nome" value="<?= $reg['nome_alu'] ?>">
+                    <label for="ev_nome">Nome</label>
+                    <input type="text" class="form-control" id="ev_nome" name="ev_nome" placeholder="Digite o Nome do Evento" value="<?= $reg['ev_nome'] ?>">
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="email_alu">E-mail</label>
-                    <input type="curso" class="form-control" id="email_alu" name="email_alu" placeholder="Digite o e-mail do aluno" value="<?= $reg['email_alu'] ?>">
+                    <label for="ev_tiev_id">Tipo do Evento</label>
+                    <select class="form-control" id="ev_tiev_id" name="ev_tiev_id">
+                      <option value="">Selecione o Tipo</option>
+                      <?php 
+                        $sqlTipos = "SELECT * FROM tipos_eventos";
+                        $resTipos = $db->consultar($sqlTipos);
+                        foreach($resTipos AS $regTipos){
+                          $selected = '';
+                          if($regTipos['tiev_id'] == $reg['ev_tiev_id']){
+                            $selected = 'selected';
+                          }
+                          //
+                          echo '<option value="' . $regTipos['tiev_id'] . '" ' . $selected . '>' . $regTipos['tiev_descricao'] . '</option>';
+                        }
+                      ?>
+                    </select>
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
-                    <label for="curso_alu">Curso</label>
-                    <input type="curso" class="form-control" id="curso_alu" name="curso_alu" placeholder="Digite o nome do Curso" value="<?= $reg['curso_alu'] ?>">
+                    <label for="ev_responsavel">Responsalvel</label>
+                    <input type="text" class="form-control" id="ev_responsavel" name="ev_responsavel" placeholder="Digite o Nome do Responsavel" value="<?= $reg['ev_responsavel'] ?>">
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="ev_horas">Carga Horaria</label>
+                    <input type="number" class="form-control" id="ev_horas" name="ev_horas" placeholder="Digite a Carga Horaria" value="<?= $reg['ev_horas'] ?>">
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="ev_data">Data</label>
+                    <input type="date" class="form-control" id="ev_data" name="ev_data" value="<?= $reg['ev_data'] ?>">
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="ev_hora_inicio">Horaio de Inicio</label>
+                    <input type="time" class="form-control" id="ev_hora_inicio" name="ev_hora_inicio" value="<?= $reg['ev_hora_inicio'] ?>">
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <div class="form-group">
+                    <label for="ev_hora_fim">Horario de Fim</label>
+                    <input type="time" class="form-control" id="ev_hora_fim" name="ev_hora_fim" value="<?= $reg['ev_hora_fim'] ?>">
                   </div>
                 </div>
                 <div class="col-12 col-sm-12" align="center">
-                  <button type="submit" class="btn btn-primary">Gravar</button>
+                  <button type="submit" class="btn btn-success">Gravar</button>
                   <?php
-                    if($reg['alunos_id'] > 0){ ?>
-                      <button type="button" class="btn btn-danger" onclick="excluirPessoa()">Excluir</button>
+                    if($reg['ev_id'] > 0){ ?>
+                      <button type="button" class="btn btn-danger" onclick="excluirEvento()">Excluir</button>
+                      <a href="../_Cadastros/evento_edita.php">
+                        <button type="button" class="btn btn-primary">Novo</button>
+                      </a>
                   <?php  
                     }
                   ?>

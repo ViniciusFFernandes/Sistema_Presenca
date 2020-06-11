@@ -49,19 +49,19 @@
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
                     <label for="alu_nome">Nome</label>
-                    <input type="aluno" class="form-control" id="alu_nome" name="alu_nome" placeholder="Digite o Nome" value="<?= $reg['alu_nome'] ?>">
+                    <input type="text" class="form-control" id="alu_nome" name="alu_nome" placeholder="Digite o Nome" value="<?= $reg['alu_nome'] ?>">
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
                     <label for="alu_email">E-mail</label>
-                    <input type="curso" class="form-control" id="alu_email" name="alu_email" placeholder="Digite o e-mail do aluno" value="<?= $reg['alu_email'] ?>">
+                    <input type="text" class="form-control" id="alu_email" name="alu_email" placeholder="Digite o e-mail do aluno" value="<?= $reg['alu_email'] ?>">
                   </div>
                 </div>
                 <div class="col-12 col-sm-6">
                   <div class="form-group">
                     <label for="alu_curso">Curso</label>
-                    <input type="curso" class="form-control" id="alu_curso" name="alu_curso" placeholder="Digite o nome do Curso" value="<?= $reg['alu_curso'] ?>">
+                    <input type="text" class="form-control" id="alu_curso" name="alu_curso" placeholder="Digite o nome do Curso" value="<?= $reg['alu_curso'] ?>">
                   </div>
                 </div>
                 <div class="col-12 col-sm-12" align="center">

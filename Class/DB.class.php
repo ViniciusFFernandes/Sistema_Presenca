@@ -92,7 +92,6 @@
 				$this->erro = true;
 				$this->msgErro = $e->getMessage();
 				$mensagem  = $e->getMessage();
-				file_put_contents("../erro.log", "\n\nData: " . date("d/m/Y H:i") . "\nErro: " . $mensagem, FILE_APPEND);
 			}
 		 	return $resultado;
 		}

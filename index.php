@@ -10,8 +10,29 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    </head>
         <title>Sistema de Presença</title>
+        <?php
+          include_once('rodape.php');
+        ?>
+        <script src="js/instascan.min.js"></script>
+        <script>
+          $( document ).ready(function() {
+            let scanner = new Instascan.Scanner({
+              video: document.getElementById('scanQRCode')
+            })
+            scanner.addListener('scan', content => {
+              alert(content)
+            })
+            Instascan.Camera.getCameras().then(cameras => {
+              if(cameras.length >0 ){
+                scanner.start(cameras[0])
+              }else{
+                $("#divCamera").html("Nenhuma camera encontrada!<br>Verifique se está conectada e atualize a pagina!")
+              }
+            })
+          });
+        </script>
+    </head>
     <body>
         <?php
             include_once("menu.php")
@@ -25,9 +46,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalQRCode">Escanear QR Code</button>
                 </div>
             </div>
-            <?php
-                include_once('rodape.php');
-            ?>
+            
         </div>
     </body>
 </html>
@@ -45,7 +64,11 @@
 
       <!-- body -->
       <div class="modal-body">
-        Em Desenvolvimento...
+        <div class="row">
+          <div class="col-12" id="divCamera">
+            <video id="scanQRCode"></video>
+          </div>
+        </div>
       </div>
 
       <!-- footer -->

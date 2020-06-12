@@ -14,10 +14,8 @@
     </head>
     <script>
       function excluirEvento(){
-        var operacao = document.getElementById("operacao");
-        var form = document.getElementById("form_edita");
-        operacao.value = 'Excluir';
-        form.submit();
+        $("#operacao").val('Excluir');
+        $("#form_edita").submit();
       }
 
       function excluirMatricula(prev_id){
@@ -30,6 +28,23 @@
               alert("Erro ao excluir matricula!");
             }
           }, "html");
+      }
+
+      function gerarQR(prev_id){
+        var ev_id = $("#ev_id").val();
+        $.post("evento_grava.php", 
+          {operacao: "gerarQR", prev_id: prev_id, ev_id: ev_id},
+          function(data){
+            if(data == 'Ok'){
+              if(prev_id == ''){
+                alert("QR codes do evento enviados com sucesso!");
+              }else{
+                alert("QR code do aluno enviados com sucesso!");
+              }
+            }else{
+              alert("Erro ao gerar QR code!")
+            }
+          }, "html")
       }
     </script>  
     <body>
@@ -140,6 +155,7 @@
                           <a href="../_Cadastros/evento_add_alunos.php?ev_id=<?= $reg['ev_id'] ?>">
                             <button type="button" class="btn btn-secondary">Adicionar Alunos <img src="../icones/adiciona.png"></button>
                           </a>
+                          <button type="button" class="btn btn-info" onclick="gerarQR('')">Gerar QR Codes <img src="../icones/qrcode.png"></button>
                         </div>
                     <?php  
                       }
@@ -177,7 +193,11 @@
                         <tr id="matricula_<?= $regMatriculas['prev_id'] ?>">
                           <td><?= $regMatriculas['alu_nome'] ?></td>
                           <td><?= $regMatriculas['alu_curso'] ?></td>
-                          <td><img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)"></td>
+                          <td style="white-space: nowrap;">
+                            <img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)">
+                            &nbsp;&nbsp;
+                            <img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(<?= $regMatriculas['prev_id'] ?>)">
+                          </td>
                         </tr>
                       <?php  
                       }

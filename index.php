@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <title>Sistema de Presença</title>
         <?php
-          include_once('rodape.php');
+          include_once('includes.php');
         ?>
         <script src="js/instascan.min.js"></script>
         <script>

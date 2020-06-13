@@ -1,5 +1,6 @@
 <?php
  include 'cabecalho.php';
+ include 'includes.php';
 ?>
      <form>
   <div class="form-group">
@@ -16,8 +17,4 @@
   </div>
   <button type="submit" class="btn btn-primary">Enviar</button>
  </form>
-
-<?php
- include 'rodape.php';
-?>
 

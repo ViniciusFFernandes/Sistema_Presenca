@@ -12,8 +12,6 @@
         <?php
         include_once('../includes.php');
         ?>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     </head>
     <script>
       function excluirEvento(){
@@ -22,11 +20,16 @@
       }
 
       function excluirMatricula(prev_id){
+        
+        $("#tdExcluiPresenca").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
+
         $.post("evento_grava.php", {operacao: 'excluirMatricula', prev_id: prev_id},
           function(data){
             if(data == 'Ok'){
               alert("Matricula excluida com sucesso!");
               $("#matricula_" + prev_id).remove();
+
+              $("#tdExcluiPresenca").html('<img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)">');
             }else{
               alert("Erro ao excluir matricula!");
             }
@@ -34,6 +37,9 @@
       }
 
       function gerarQR(prev_id){
+        $("#btnGeraQr").attr("disabled", true);
+        $("#tdQrCode").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
+
         var ev_id = $("#ev_id").val();
         $.post("evento_grava.php", 
           {operacao: "gerarQR", prev_id: prev_id, ev_id: ev_id},
@@ -44,6 +50,8 @@
               }else{
                 alert("QR code do aluno enviados com sucesso!");
               }
+              $("#tdQrCode").html('<img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(<?= $regMatriculas['prev_id'] ?>)">');
+              $("#btnGeraQr").attr("disabled", false);
             }else{
               alert("Erro ao gerar QR code!")
             }
@@ -74,7 +82,7 @@
               $reg = $db->retornaUmReg($sql);
             }
           ?>
-          <div class="card pb-1 mb-5">
+          <div class="card pb-1 mb-3">
             <div class="card-header bg-primary text-light">
               <b>Cadastro de Eventos</b>
               <span class="float-right light"><a href="../_Cadastros/evento_lista.php"><img src="../icones/lupaPrimary.png" width="28px"></a></span>
@@ -152,17 +160,6 @@
                         }
                       ?>
                     </div>
-                    <?php
-                      if($reg['ev_id'] > 0){ ?>
-                        <div class="col-12 mt-1" align="center">
-                          <a href="../_Cadastros/evento_add_alunos.php?ev_id=<?= $reg['ev_id'] ?>">
-                            <button type="button" class="btn btn-secondary">Adicionar Alunos <img src="../icones/adiciona.png"></button>
-                          </a>
-                          <button type="button" class="btn btn-info" onclick="gerarQR('')">Gerar QR Codes <img src="../icones/qrcode.png"></button>
-                        </div>
-                    <?php  
-                      }
-                    ?>
                 </div>
               </form>
             </div>
@@ -178,6 +175,21 @@
           ?>
 
               <div class="card pb-1 mb-5">
+                <?php
+                if($reg['ev_id'] > 0){ ?>
+                  <div class="row">
+                    <div class="col-6 m-0 p-0 mt-2 mb-2" align="center">
+                      <a href="../_Cadastros/evento_add_alunos.php?ev_id=<?= $reg['ev_id'] ?>">
+                        <button type="button" class="btn btn-secondary" style="font-size: 0.75rem;">Adicionar Alunos <img src="../icones/adiciona.png"></button>
+                      </a>
+                    </div>
+                    <div class="col-6 m-0 p-0 mt-2 mb-2" align="center">
+                      <button type="button" class="btn btn-info" id="btnGeraQr" style="font-size: 0.75rem;" onclick="gerarQR('')">Gerar QR Codes <img src="../icones/qrcode.png"></button>
+                    </div>
+                  </div>
+                <?php  
+                  }
+                ?>
                 <div class="card-header bg-primary text-light">
                   <b>Alunos Inscritos</b>
                 </div>
@@ -187,7 +199,7 @@
                       <tr class="table-active">
                         <th>Nome</th>
                         <th>Curso</th>
-                        <th width="5%">&nbsp;</th>
+                        <th colspan="2" width="5%">&nbsp;</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -196,9 +208,10 @@
                         <tr id="matricula_<?= $regMatriculas['prev_id'] ?>">
                           <td><?= $regMatriculas['alu_nome'] ?></td>
                           <td><?= $regMatriculas['alu_curso'] ?></td>
-                          <td style="white-space: nowrap;">
+                          <td style="white-space: nowrap;" id="tdExcluiPresenca">
                             <img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)">
-                            &nbsp;&nbsp;
+                          </td>
+                          <td style="white-space: nowrap;" id="tdQrCode">
                             <img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(<?= $regMatriculas['prev_id'] ?>)">
                           </td>
                         </tr>

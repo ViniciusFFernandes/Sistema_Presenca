@@ -1,5 +1,6 @@
 <?php
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+date_default_timezone_set('America/Sao_Paulo');
 require_once("../Class/DB.class.php");
 require_once("../privado/constantes.php");
 //

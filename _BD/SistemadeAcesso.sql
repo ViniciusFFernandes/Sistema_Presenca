@@ -23,7 +23,7 @@ Create table alunos (
 
  Create table presencas_eventos (
 	prev_id Int NOT NULL AUTO_INCREMENT,
-	previ_data_hora timestamp,
+	prev_data_hora datetime,
 	prev_alu_id int,
 	prev_ev_id int,
  Primary Key (prev_id)) ENGINE = INNODB;

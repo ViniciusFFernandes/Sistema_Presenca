@@ -16,22 +16,28 @@
         <script>
           function abreCamera(){
             $("#carregandoCamera").show();
+            $("#linhaCamera").show();
             $("#scanQRCode").hide();
+            $("#linhaDados").hide();
+            $("#modalFooter").hide();
             $("#prev_id").val('');
+            $("#modalTitulo").html("Aponte a camera para o QR Code");
             //
             let scanner = new Instascan.Scanner({
               video: document.getElementById('scanQRCode'),
-              mirror: false
+              mirror: false,
+              backgroundScan: false,
+              refractoryPeriod: 1000
             });
             scanner.addListener('scan', function(content){
                 // alert(content);
-                scanner.stop();
+                this.stop();
                 //
                 $("#linhaCamera").hide();
                 $("#modalTitulo").html("Confira os dados do aluno");
                 $("#linhaDados").show();
                 $("#prev_id").val(content);
-                $.post("presenca_grava.php", {operacao: 'buscarDados', prev_id: content},
+                $.post("_Cadastros/presenca_grava.php", {operacao: 'buscarDados', prev_id: content},
                 function(data){
                   $("#divDados").html(data);
                   $("#modalFooter").show();
@@ -49,7 +55,7 @@
           }
 
           function confirmaPresenca(){
-            $.post("presenca_grava.php", {operacao: 'gravarPresenca', prev_id: $("#prev_id").val(content)},
+            $.post("_Cadastros/presenca_grava.php", {operacao: 'gravarPresenca', prev_id: $("#prev_id").val()},
                 function(data){
                   if(data == 'Ok'){
                     alert("Presença registrada!");
@@ -99,21 +105,21 @@
           <input type="hidden" id="prev_id">
         <div class="row" id="linhaCamera">
           <div class="col-12">
-            <span class="spinner-border spinner-border-sm text-primary" id="carregandoCamera"></span>Buscando camera...
-            <video id="scanQRCode" width="100%" class="d-none"></video>
+            <span id="carregandoCamera"><span class="spinner-border spinner-border-sm text-primary"></span> Buscando camera...</span>
+            <video id="scanQRCode" width="100%" style="display:none;"></video>
           </div>
         </div>
-        <div class="row d-none" id="linhaDados">
+        <div class="row" style="display:none;" id="linhaDados">
           <div class="col-12" id="divDados">
-            <span class="spinner-border spinner-border-sm text-primary"></span>Buscando dados...
+            <span class="spinner-border spinner-border-sm text-primary"></span> Buscando dados...
           </div>
         </div>
       </div>
 
       <!-- footer -->
-      <div class="modal-footer d-none" id="modalFooter">
-        <button type="button" class="btn btn-danger">Cancelar</button>
-        <button type="button" class="btn btn-success">Confirmar</button>
+      <div class="modal-footer" style="display:none;" id="modalFooter">
+        <button type="button" class="btn btn-danger" onclick="cancelaPresenca()">Cancelar</button>
+        <button type="button" class="btn btn-success" onclick="confirmaPresenca()">Confirmar</button>
       </div>
 
     </div>

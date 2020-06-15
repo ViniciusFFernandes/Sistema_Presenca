@@ -16,21 +16,55 @@
         ?>
         <script src="js/instascan.min.js"></script>
         <script>
-          $( document ).ready(function() {
+          function abreCamera(){
+            $("#carregandoCamera").show();
+            $("#scanQRCode").hide();
+            $("#prev_id").val('');
+            //
             let scanner = new Instascan.Scanner({
-              video: document.getElementById('scanQRCode')
-            })
-            scanner.addListener('scan', content => {
-              alert(content)
-            })
+              video: document.getElementById('scanQRCode'),
+              mirror: false
+            });
+            scanner.addListener('scan', function(content){
+                // alert(content);
+                scanner.stop();
+                //
+                $("#linhaCamera").hide();
+                $("#modalTitulo").html("Confira os dados do aluno");
+                $("#linhaDados").show();
+                $("#prev_id").val(content);
+                $.post("presenca_grava.php", {operacao: 'buscarDados', prev_id: content},
+                function(data){
+                  $("#divDados").html(data);
+                  $("#modalFooter").show();
+                }, 'html');
+            });
             Instascan.Camera.getCameras().then(cameras => {
-              if(cameras.length >0 ){
-                scanner.start(cameras[0])
+              if(cameras.length > 0 ){
+                scanner.start(cameras[1]);
+                $("#carregandoCamera").hide();
+                $("#scanQRCode").show();
               }else{
                 $("#divCamera").html("Nenhuma camera encontrada!<br>Verifique se está conectada e atualize a pagina!")
               }
-            })
-          });
+            });
+          }
+
+          function confirmaPresenca(){
+            $.post("presenca_grava.php", {operacao: 'gravarPresenca', prev_id: $("#prev_id").val(content)},
+                function(data){
+                  if(data == 'Ok'){
+                    alert("Presença registrada!");
+                    abreCamera(); 
+                  }else{
+                    alert("Erro ao gerar presença");
+                  }
+                }, 'html');
+          }
+
+          function cancelaPresenca(){
+            abreCamera();
+          }
         </script>
     </head>
     <body>
@@ -43,7 +77,7 @@
             ?>
             <div class="row" align="center">
                 <div class="col-12">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalQRCode">Escanear QR Code</button>
+                    <button type="button" onclick="abreCamera()" class="btn btn-primary" data-toggle="modal" data-target="#modalQRCode">Escanear QR Code</button>
                 </div>
             </div>
             
@@ -64,16 +98,23 @@
 
       <!-- body -->
       <div class="modal-body">
-        <div class="row">
-          <div class="col-12" id="divCamera">
-            <video id="scanQRCode"></video>
+          <input type="hidden" id="prev_id">
+        <div class="row" id="linhaCamera">
+          <div class="col-12">
+            <span class="spinner-border spinner-border-sm text-primary" id="carregandoCamera"></span>Buscando camera...
+            <video id="scanQRCode" width="100%" class="d-none"></video>
+          </div>
+        </div>
+        <div class="row d-none" id="linhaDados">
+          <div class="col-12" id="divDados">
+            <span class="spinner-border spinner-border-sm text-primary"></span>Buscando dados...
           </div>
         </div>
       </div>
 
       <!-- footer -->
-      <div class="modal-footer d-none">
-        <button type="button" class="btn btn-danger">Close</button>
+      <div class="modal-footer d-none" id="modalFooter">
+        <button type="button" class="btn btn-danger">Cancelar</button>
         <button type="button" class="btn btn-success">Confirmar</button>
       </div>
 

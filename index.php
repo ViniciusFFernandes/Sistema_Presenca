@@ -44,12 +44,19 @@
                 }, 'html');
             });
             Instascan.Camera.getCameras().then(cameras => {
-              if(cameras.length > 0 ){
+              if(cameras[1].length > 0 ){
                 scanner.start(cameras[1]);
                 $("#carregandoCamera").hide();
                 $("#scanQRCode").show();
               }else{
-                $("#divCamera").html("Nenhuma camera encontrada!<br>Verifique se está conectada e atualize a pagina!")
+                if(cameras[0].length > 0){
+                  scanner.start(cameras[0]);
+                  $("#carregandoCamera").hide();
+                  $("#scanQRCode").show();
+                }else{
+                  $("#divCamera").html("Nenhuma camera encontrada!<br>Verifique se está conectada e atualize a pagina!");
+                }
+                
               }
             });
           }

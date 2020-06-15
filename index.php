@@ -27,7 +27,7 @@
               video: document.getElementById('scanQRCode'),
               mirror: false,
               backgroundScan: false,
-              refractoryPeriod: 1000
+              refractoryPeriod: 2000
             });
             scanner.addListener('scan', function(content){
                 // alert(content);

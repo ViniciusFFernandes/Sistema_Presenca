@@ -8,8 +8,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Sistema de Presença</title>
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <?php
+        include_once('../includes.php');
+        ?>
     </head>
     <script>
     </script>  
@@ -86,9 +87,6 @@
 				</div>
             </div>
           </div>
-            <?php
-                include_once('../rodape.php');
-            ?>
         </div>
     </body>
 </html>

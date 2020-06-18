@@ -40,7 +40,7 @@
             	<?php
 					$sql = "SELECT * FROM alunos";
 					if(!empty($_REQUEST['pesquisaAluno'])){
-						$sql .= " WHERE alu_nome LIKE '%" . $_REQUEST['pesquisaAluno'] . "%' OR alu_curso LIKE '%" . $_REQUEST['pesquisaAluno'] . "%'";
+						$sql .= " WHERE UPPER(alu_nome) LIKE '%" . strtoupper($_REQUEST['pesquisaAluno']) . "%' OR UPPER(alu_curso) LIKE '%" . strtoupper($_REQUEST['pesquisaAluno']) . "%'";
 					}
 					$res = $db->consultar($sql);
 				?>

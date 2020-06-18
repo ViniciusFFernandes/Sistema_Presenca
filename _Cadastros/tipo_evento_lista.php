@@ -40,7 +40,7 @@
             	<?php
 					$sql = "SELECT * FROM tipos_eventos";
 					if(!empty($_REQUEST['pesquisaTipoEvento'])){
-						$sql .= " WHERE tiev_descricao LIKE '%" . $_REQUEST['pesquisaTipoEvento'] . "%'";
+						$sql .= " WHERE UPPER(tiev_descricao) LIKE '%" . strtoupper( $_REQUEST['pesquisaTipoEvento']) . "%'";
 					}
 					$res = $db->consultar($sql);
 				?>

@@ -40,7 +40,7 @@
             	<?php
 					$sql = "SELECT * FROM eventos";
 					if(!empty($_REQUEST['pesquisaEvento'])){
-						$sql .= " WHERE ev_nome LIKE '%" . $_REQUEST['pesquisaEvento'] . "%'";
+						$sql .= " WHERE UPPER(ev_nome) LIKE '%" . strtoupper($_REQUEST['pesquisaEvento']) . "%'";
 					}
 					$res = $db->consultar($sql);
 				?>

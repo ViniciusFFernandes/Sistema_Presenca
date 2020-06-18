@@ -28,11 +28,11 @@
         </div>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle <?php if($menuActive == 'Relatorios') echo "active"; ?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Relat&oacute;rios
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="relatorio-aluno.php">Aluno</a>
+          <a class="dropdown-item" href="<?= $diretorioBase ?>_Relatorios/rel_alunos_sel.php">Aluno</a>
           <a class="dropdown-item" href="relatorio-tipo-evento.php">Tipo de Evento</a>
           <a class="dropdown-item" href="relatorio-evento.php">Evento</a>
           <a class="dropdown-item" href="relatorio-presenca.php">Presen&ccedil;a</a>

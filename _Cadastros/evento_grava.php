@@ -74,7 +74,7 @@
             //print_r($_POST);
             $sql = "SELECT * FROM eventos WHERE ev_id = " . $_POST['ev_id'];
             $reg = $db->retornaUmReg($sql);
-            if(strtotime($rerg['ev_data'] . " " . $reg['ev_hora_fim']) <= strtotime(date("Y-m-d H:i"))){
+            if(strtotime($reg['ev_data'] . " " . $reg['ev_hora_fim']) <= strtotime(date("Y-m-d H:i"))){
                 header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "msg=As%20incricoes%20deste%20evento%20se%20encerraram&msgTipo=erro");
                 exit;
             }

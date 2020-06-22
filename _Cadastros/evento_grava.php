@@ -11,6 +11,24 @@
     use PHPMailer\PHPMailer\Exception;
 
     if($_POST['operacao'] == 'Gravar'){
+        if(empty($_POST['ev_nome'])){
+            mostraErro("O nome do evento não pode ser informado em branco!", "Gravar");
+        }
+        if(empty($_POST['ev_tiev_id'])){
+            mostraErro("O tipo do evento não pode ser informado em branco!", "Gravar");
+        }
+        if(empty($_POST['ev_horas'])){
+            mostraErro("A carga horaria do evento não pode ser informado em branco!", "Gravar");
+        }
+        if(empty($_POST['ev_data'])){
+            mostraErro("A data do evento não pode ser informado em branco!", "Gravar");
+        }
+        if(empty($_POST['ev_hora_inicio'])){
+            mostraErro("O horario de inicio do evento não pode ser informado em branco!", "Gravar");
+        }
+        if(empty($_POST['ev_hora_fim'])){
+            mostraErro("O horario de fim do evento não pode ser informado em branco!", "Gravar");
+        }
         if($_POST['ev_id'] > 0){
             $sql = "UPDATE eventos SET ";
             $sql .= " ev_nome = '" . $_POST['ev_nome'] . "', ";

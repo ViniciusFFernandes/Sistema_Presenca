@@ -39,8 +39,13 @@
                 $("#prev_id").val(content);
                 $.post("_Cadastros/presenca_grava.php", {operacao: 'buscarDados', prev_id: content},
                 function(data){
-                  $("#divDados").html(data);
-                  $("#modalFooter").show();
+                  if(data == "Evento Finalizado"){
+                    alert("Este evento já foi finalizado!\nNão é possivel gerar presença!");
+                    abreCamera();
+                  }else{
+                    $("#divDados").html(data);
+                    $("#modalFooter").show();
+                  }
                 }, 'html');
             });
             Instascan.Camera.getCameras().then(cameras => {

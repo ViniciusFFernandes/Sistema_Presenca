@@ -9,6 +9,10 @@
                     JOIN alunos ON (prev_alu_id = alu_id)
                 WHERE prev_id = " . $_POST['prev_id'];
         $reg = $db->retornaUmReg($sql);
+        if(strtotime($reg['ev_data'] . " " . $reg['ev_hora_fim']) <= strtotime(date("Y-m-d H:i"))){
+            echo "Evento Finalizado";
+            exit;
+        }
         ?>
         <div class="row">
             <div class="col-12 col-sm-6">Nome: <?= $reg['alu_nome'] ?></div>

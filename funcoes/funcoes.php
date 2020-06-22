@@ -1,4 +1,6 @@
 <?php 
+	//
+	//Função usada para converter a data vinda do banco de dados para formato com barra
     function converteData($string){
         if ($string != "") {
 					$string = explode(" ", $string);
@@ -12,7 +14,30 @@
 				}
 				return $dataFormatada;
 	}
-	
+	//
+	//Função usada para converter valor pra inteiro ou NULL caso não seja
+	function igr($num){
+		if ($num != "") {
+         	return intval($num);
+        }else{
+          	return "NULL";
+        }
+	}
+	//
+	//Função usada para inserir aspas simples nas strings para gravação no banco de dados
+	function sgr($string, $retornaNull = false){
+		if ($string != "") {
+			$string = str_replace("'", "''", $string);
+          	return "'" . $string . "'";
+        }else{
+			if($retornaNull){
+				return "NULL";
+			}
+          	return "''";
+        }
+	}
+	//
+	//Função usada para criar uma estrutra html com uma msg de erro, usada pra exibir erros do sistema
 	function mostraErro($textoerro, $operacao) { ?>
 		<!doctype html>
 		<html lang="pt-br" style="height: 100% !important;">

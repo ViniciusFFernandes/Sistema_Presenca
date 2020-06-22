@@ -109,7 +109,74 @@
 				$this->msgErro = $e->getMessage();
 				$mensagem  = $e->getMessage();				
 			}
+		}
+		//
+		//Metodo usado para setar a tabela e o id da tabela para os inserts e updates
+		public function setTabela($tabela, $idtabela){
+			$this->tabela = $tabela;
+			$this->idtabela = $idtabela;
+		}
+		//
+		//Metodo usado para definir se sera um insert ou um update
+		public function gravarInserir($dados){
+	  		if(!empty($dados['id'])){
+	  			return $this->alterar($dados);
+	  		}else{
+	  			unset($dados['id']);
+	  			return $this->gravar($dados);
+	  		}
 	  	}
+		//
+		//Metodo usado para executar updates
+		public function gravar($dados = null){
+			$campos   = implode(",",array_keys($dados));
+			$valores  = implode(",",array_values($dados));
+			$query = "INSERT INTO " . $this->tabela . " (" .
+					  $campos." ) VALUES ( " . $valores . " ) ";
+			//echo "$query<br>";
+			//exit;
+		    //
+			return $this->executaSQL($query);
+		 }
+		 //
+		 //Metodo usado para executar inserts
+		 public function alterar($dados = null){
+			if(!is_null($dados)){
+				$valores = array();
+				foreach($dados as $key=>$value){
+					if($key != 'id') $valores[] = $key . " = " . $value;
+				}
+				$valores = implode(',',$valores);
+				$query = "UPDATE " . $this->tabela . " SET " . $valores . " WHERE " . $this->idtabela . " = " . $dados['id'];
+			    //echo "$query<br>";
+			    
+				return $this->executaSQL($query);
+		  	}else{
+				return false;
+			}
+		}
+		//
+		//Metodo usado para excluir um registro
+		public function excluir($id = null){
+			if(!is_null($id)){
+				$query = "DELETE FROM " . $this->tabela . " WHERE " . $this->idtabela . " = " . $id;
+				return $this->executaSQL($query);
+			}
+			else{
+				return false;
+			}
+		}
+		//
+		//Metodo usado para retornar o id do ultimo insert executado
+		public function getUltimoID(){
+			$nomeID = 'id'. $this->tabela;
+			$sql = "SELECT " . $nomeID . " FROM " . $this->tabela . " ORDER BY " . $nomeID . " DESC LIMIT 1";
+			$query = $this->conexao->query($sql);
+			$query->execute();
+			$resultado = $query->fetch(PDO::FETCH_ASSOC);  // fetch = recuperação do resultado
+			$query->closeCursor();
+			return $resultado[$nomeID];
+		}
 	}
 
 

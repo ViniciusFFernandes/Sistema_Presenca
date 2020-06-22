@@ -28,9 +28,12 @@
     }
 
     if($_POST['operacao'] == 'gravarPresenca'){
-        $sql = "UPDATE presencas_eventos SET prev_data_hora = '" . date("Y-m-d H:i") . "' WHERE prev_id = " . $_POST['prev_id'];
         //
-        $db->executaSQL($sql);
+        $db->setTabela("presencas_eventos", "prev_id");
+        //
+        $dados['id']                = $_POST['prev_id'];
+        $dados['prev_data_hora'] 	= sgr(date("Y-m-d H:i"));
+        $db->gravarInserir($dados);
         //
         if($db->erro()){
             echo "Erro";

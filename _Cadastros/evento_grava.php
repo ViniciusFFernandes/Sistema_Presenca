@@ -29,56 +29,36 @@
         if(empty($_POST['ev_hora_fim'])){
             mostraErro("O horario de fim do evento não pode ser informado em branco!", "Gravar");
         }
-        if($_POST['ev_id'] > 0){
-            $sql = "UPDATE eventos SET ";
-            $sql .= " ev_nome = '" . $_POST['ev_nome'] . "', ";
-            $sql .= " ev_tiev_id = " . $_POST['ev_tiev_id'] . ", ";
-            $sql .= " ev_responsavel = '" . $_POST['ev_responsavel'] . "', ";
-            $sql .= " ev_horas = " . $_POST['ev_horas'] . ", ";
-            $sql .= " ev_data = '" . $_POST['ev_data'] . "', ";
-            $sql .= " ev_hora_inicio = '" . $_POST['ev_hora_inicio'] . "', ";
-            $sql .= " ev_hora_fim = '" . $_POST['ev_hora_fim'] . "'";
-            $sql .= " WHERE ev_id = " . $_POST['ev_id'];
-            //
-            $db->executaSQL($sql);
-            //
-            if($db->erro()){
-                header("Location: ../_Cadastros/evento_edita.php?msg=Erro%20ao%20editar%20evento&msgTipo=erro");
-                exit;
-            }else{
-                header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "msg=Evento%20alterado%20com%20sucesso&msgTipo=sucesso");
-                exit;
-            }
+        //
+        $db->setTabela("eventos", "ev_id");
+        //
+        $dados['id']                = $_POST['ev_id'];
+        $dados['ev_nome']       	= sgr($_POST['ev_nome']);
+        $dados['ev_tiev_id'] 	    = igr($_POST['ev_tiev_id']);
+        $dados['ev_responsavel'] 	= sgr($_POST['ev_responsavel']);
+        $dados['ev_horas']      	= sgr($_POST['ev_horas']);
+        $dados['ev_data']   	    = sgr($_POST['ev_data']);
+        $dados['ev_hora_inicio'] 	= sgr($_POST['ev_hora_inicio']);
+        $dados['ev_hora_fim']   	= sgr($_POST['ev_hora_fim']);
+        $db->gravarInserir($dados);
+        //
+        if($db->erro()){
+            header("Location: ../_Cadastros/evento_edita.php?msg=Erro%20ao%20gravar%20evento&msgTipo=erro");
+            exit;
         }else{
-            $sql = "INSERT INTO eventos (ev_nome, ev_tiev_id, ev_responsavel, ev_horas, ev_data, ev_hora_inicio, ev_hora_fim) VALUES( ";
-            $sql .= "'" . $_POST['ev_nome'] . "', ";
-            $sql .=  $_POST['ev_tiev_id'] . ", ";
-            $sql .= "'" . $_POST['ev_responsavel'] . "', ";
-            $sql .=  $_POST['ev_horas'] . ", ";
-            $sql .= "'" . $_POST['ev_data'] . "', ";
-            $sql .= "'" . $_POST['ev_hora_inicio'] . "', ";
-            $sql .= "'" . $_POST['ev_hora_fim'] . "')";
-                    //
-            $db->executaSQL($sql);
-            //
-            if($db->erro()){
-                header("Location: ../_Cadastros/evento_edita.php?msg=Erro%20ao%20cadastrar%20evento&msgTipo=erro");
-                exit;
+            if ($_POST['ev_id'] > 0) {
+                $id = $_POST['ev_id'];
             }else{
-                $sql = "SELECT ev_id FROM eventos ORDER BY ev_id DESC LIMIT 1";
-                $reg = $db->retornaUmReg($sql);
-                $ev_id = $reg['ev_id'];
-                //
-                header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $ev_id . "&msg=Evento%20cadastrado%20com%20sucesso&msgTipo=sucesso");
-                exit;
+                $id = $db->getUltimoID();
             }
+            header("Location: ../_Cadastros/evento_edita.php?ev_id={$id}msg=Evento%20gravado%20com%20sucesso&msgTipo=sucesso");
+            exit;
         }
-        }
+    }
 
         if($_POST['operacao'] == 'Excluir'){
-            $sql = "DELETE FROM eventos WHERE ev_id = " . $_POST['ev_id'];
-            //
-            $db->executaSQL($sql);
+            $db->setTabela("eventos", "ev_id");
+            $db->excluir($_POST['ev_id']);
             //
             if($db->erro()){
                 header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "&msg=Erro%20ao%20excluir%20evento&msgTipo=erro");
@@ -97,12 +77,14 @@
                 mostraErro("Não é permitido inserir alunos com o evento já finalizado!", "Inserir");
             }
             //
+            $db->setTabela("presencas_eventos", "prev_id");
             foreach($_POST['checkbox_alu_id'] AS $alu_id){
-                $sql = "INSERT INTO presencas_eventos (prev_alu_id, prev_ev_id) VALUES( ";
-                $sql .=  $alu_id . ", ";
-                $sql .=  $_POST['ev_id'] . ") ";
+                unset($dados);
                 //
-                $db->executaSQL($sql);
+                $dados['id']                = 0;
+                $dados['prev_alu_id']       = igr($alu_id);
+                $dados['prev_ev_id'] 	    = igr($_POST['prev_ev_id']);
+                $db->gravarInserir($dados);
                 //
                 if($db->erro()){
                     header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "msg=Erro%20ao%incluir%20alunos%20no%20evento&msgTipo=erro");
@@ -115,9 +97,8 @@
         }
 
         if($_POST['operacao'] == 'excluirMatricula'){
-            $sql = "DELETE FROM presencas_eventos WHERE prev_id = " . $_POST['prev_id'];
-            //
-            $db->executaSQL($sql);
+            $db->setTabela("presencas_eventos", "prev_id");
+            $db->excluir($_POST['prev_id']);
             //
             if($db->erro()){
                 echo "Erro";

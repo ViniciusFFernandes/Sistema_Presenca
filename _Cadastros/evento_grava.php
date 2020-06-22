@@ -75,7 +75,7 @@
             //print_r($_POST);
             $sql = "SELECT * FROM eventos WHERE ev_id = " . $_POST['ev_id'];
             $reg = $db->retornaUmReg($sql);
-            if(strtotime($rerg['ev_data'] . " " . $reg['ev_hora_fim']) <= strtotime(date("Y-m-d H:i"))){
+            if(strtotime($reg['ev_data'] . " " . $reg['ev_hora_fim']) <= strtotime(date("Y-m-d H:i"))){
                 mostraErro("Não é permitido inserir alunos com o evento já finalizado!", "Inserir");
             }
             //

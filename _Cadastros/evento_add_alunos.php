@@ -1,5 +1,12 @@
 <?php
-  include_once("../_BD/conecta_login.php");
+    include_once("../_BD/conecta_login.php");
+    include_once("../funcoes/funcoes.php");
+    //
+    $sql = "SELECT * FROM eventos WHERE ev_id = " . $_REQUEST['ev_id'];
+    $reg = $db->retornaUmReg($sql);
+    if(strtotime($rerg['ev_data'] . " " . $reg['ev_hora_fim']) <= strtotime(date("Y-m-d H:i"))){
+        mostraErro("Não é permitido inserir alunos com o evento já finalizado!", "Inserir");
+    }
 ?>
 <!doctype html>
 <html lang="pt-br">

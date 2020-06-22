@@ -1,5 +1,6 @@
 <?php
     include_once("../_BD/conecta_login.php");
+    include_once("../funcoes/funcoes.php");
     include_once('../PHPMailer/PHPMailer.php');
     include_once('../PHPMailer/SMTP.php');
     include_once('../PHPMailer/Exception.php');
@@ -27,7 +28,7 @@
                 header("Location: ../_Cadastros/evento_edita.php?msg=Erro%20ao%20editar%20evento&msgTipo=erro");
                 exit;
             }else{
-                header("Location: ../_Cadastros/evento_edita.php?msg=Evento%20alterado%20com%20sucesso&msgTipo=sucesso");
+                header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "msg=Evento%20alterado%20com%20sucesso&msgTipo=sucesso");
                 exit;
             }
         }else{
@@ -75,8 +76,7 @@
             $sql = "SELECT * FROM eventos WHERE ev_id = " . $_POST['ev_id'];
             $reg = $db->retornaUmReg($sql);
             if(strtotime($rerg['ev_data'] . " " . $reg['ev_hora_fim']) <= strtotime(date("Y-m-d H:i"))){
-                header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "msg=As%20incricoes%20deste%20evento%20se%20encerraram&msgTipo=erro");
-                exit;
+                mostraErro("Não é permitido inserir alunos com o evento já finalizado!", "Inserir");
             }
             //
             foreach($_POST['checkbox_alu_id'] AS $alu_id){

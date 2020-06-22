@@ -13,7 +13,7 @@
             header("Location: ../_Cadastros/tipo_evento_edita.php?msg=Erro%20ao%20editar%20Tipo%20de%20Evento&msgTipo=erro");
             exit;
         }else{
-            header("Location: ../_Cadastros/tipo_evento_edita.php?msg=Tipo%20de%20Evento%20alterado%20com%20sucesso&msgTipo=sucesso");
+            header("Location: ../_Cadastros/tipo_evento_edita.php?tiev_id=" . $_POST['tiev_id'] . "msg=Tipo%20de%20Evento%20alterado%20com%20sucesso&msgTipo=sucesso");
             exit;
         }
       }else{

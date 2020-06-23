@@ -83,7 +83,7 @@
                 //
                 $dados['id']                = 0;
                 $dados['prev_alu_id']       = igr($alu_id);
-                $dados['prev_ev_id'] 	    = igr($_POST['prev_ev_id']);
+                $dados['prev_ev_id'] 	    = igr($_POST['ev_id']);
                 $db->gravarInserir($dados);
                 //
                 if($db->erro()){

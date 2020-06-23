@@ -59,6 +59,16 @@
                        }
                     }
             })
+      function listaRelatorio(){
+        var mod_relatorio = $("input[name='modelo']:checked").val();
+        var nome = $("#alu_nome").val();
+        if(nome == ''){
+          alert("Escolha um aluno para listar o relatório!");
+          return;
+        }
+        $("#form_rel").attr("action", mod_relatorio + ".php");
+        $("#form_rel").submit();
+      }
     </script>  
     <body>
         <?php
@@ -70,15 +80,42 @@
               <b>Relatório de Alunos</b>
             </div>
             <div class="card-body">
-              <form action="" method="post" id="form_edita">
-                <input type="hidden" id="tiev_id" name="tiev_id" value="<?= $reg['tiev_id'] ?>">
-                <input type="hidden" id="operacao" name="operacao" value="Gravar">
+              <form action="rel_alunos.php" method="post" id="form_rel">
                 <div class="row" >
-                    <div class="col-12 col-sm-6">
+                    <div class="col-12 col-sm-12">
                       <div class="form-group">
-                        <label for="tiev_descricao">Aluno</label>
+                        <label for="alu_nome">Aluno</label>
                         <input type="text" class="form-control" id="alu_nome" name="alu_nome">
                         <input type="hidden" name="alu_id" id="alu_id">
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                      <label for="div_modelo">Modelo</label>
+                      <div class="form-check" id="div_modelo">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="modelo" checked value="rel_alunos_modelo_eventos">Inscrições de eventos
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="modelo" value="rel_alunos_modelo_ch_total">Carga Horária Total
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="modelo" value="rel_alunos_modelo_ch_detalhada">Carga Horária Detalhada
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" >
+                    <div class="col-12 col-sm-12">
+                      <div class="form-group d-flex justify-content-center">
+                        <input type="button" class="btn btn-primary" name="btnLista" value="Listar" onclick="listaRelatorio()">
                       </div>
                     </div>
                 </div>

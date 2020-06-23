@@ -169,13 +169,12 @@
 		//
 		//Metodo usado para retornar o id do ultimo insert executado
 		public function getUltimoID(){
-			$nomeID = 'id'. $this->tabela;
-			$sql = "SELECT " . $nomeID . " FROM " . $this->tabela . " ORDER BY " . $nomeID . " DESC LIMIT 1";
+			$sql = "SELECT " . $this->idtabela . " FROM " . $this->tabela . " ORDER BY " . $this->idtabela . " DESC LIMIT 1";
 			$query = $this->conexao->query($sql);
 			$query->execute();
 			$resultado = $query->fetch(PDO::FETCH_ASSOC);  // fetch = recuperação do resultado
 			$query->closeCursor();
-			return $resultado[$nomeID];
+			return $resultado[$this->idtabela];
 		}
 	}
 

@@ -22,7 +22,7 @@
             }else{
                 $id = $db->getUltimoID();
             }
-            header("Location: ../_Cadastros/tipo_evento_edita.php?tiev_id={$id}msg=Tipo%20de%20Evento%20gravado%20com%20sucesso&msgTipo=sucesso");
+            header("Location: ../_Cadastros/tipo_evento_edita.php?tiev_id={$id}&msg=Tipo%20de%20Evento%20gravado%20com%20sucesso&msgTipo=sucesso");
             exit;
         }
     }

@@ -28,7 +28,7 @@
             }else{
                 $id = $db->getUltimoID();
             }
-            header("Location: ../_Cadastros/alunos_edita.php?alu_id={$id}msg=Aluno%20gravado%20com%20sucesso&msgTipo=sucesso");
+            header("Location: ../_Cadastros/alunos_edita.php?alu_id={$id}&msg=Aluno%20gravado%20com%20sucesso&msgTipo=sucesso");
             exit;
         }
     }   

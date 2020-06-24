@@ -51,7 +51,7 @@
             }else{
                 $id = $db->getUltimoID();
             }
-            header("Location: ../_Cadastros/evento_edita.php?ev_id={$id}msg=Evento%20gravado%20com%20sucesso&msgTipo=sucesso");
+            header("Location: ../_Cadastros/evento_edita.php?ev_id={$id}&msg=Evento%20gravado%20com%20sucesso&msgTipo=sucesso");
             exit;
         }
     }
@@ -87,7 +87,7 @@
                 $db->gravarInserir($dados);
                 //
                 if($db->erro()){
-                    header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "msg=Erro%20ao%incluir%20alunos%20no%20evento&msgTipo=erro");
+                    header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "&msg=Erro%20ao%incluir%20alunos%20no%20evento&msgTipo=erro");
                     exit;
                 }
             }

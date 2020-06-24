@@ -35,7 +35,7 @@
             }else{
                 $id = $db->getUltimoID();
             }
-            header("Location: ../_Cadastros/alunos_edita.php?alu_id={$id}msg=Aluno%20gravado%20com%20sucesso&msgTipo=sucesso");
+            header("Location: ../_Cadastros/alunos_edita.php?alu_id={$id}&msg=Aluno%20gravado%20com%20sucesso&msgTipo=sucesso");
             exit;
         }
     }   
@@ -56,8 +56,9 @@
             //
             //Caso a torina der certo retorna com uma mensagem de sucesso
             if ($_POST['alu_id'] > 0) {
-            header("Location: ../_Cadastros/alunos_edita.php?msg=Aluno%20excluido%20com%20sucesso");
-            exit;
+                header("Location: ../_Cadastros/alunos_edita.php?msg=Aluno%20excluido%20com%20sucesso");
+                exit;
+            }
         }
     }
 ?>

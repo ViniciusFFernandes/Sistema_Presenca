@@ -58,6 +58,14 @@
                           $('#alu_nome').val(''); 
                        }
                     }
+
+                    $("input[name='modelo']").on( "click", function() {
+                      if($("input:checked" ).attr("id") == 'rd_ev'){
+                        $("#div_cb_presente").show();
+                      }else{
+                        $("#div_cb_presente").hide();
+                      }
+                    });
             })
       function listaRelatorio(){
         var mod_relatorio = $("input[name='modelo']:checked").val();
@@ -96,17 +104,15 @@
                       <label for="div_modelo">Modelo</label>
                       <div class="form-check" id="div_modelo">
                         <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="modelo" checked value="rel_alunos_modelo_eventos">Inscrições de eventos
+                          <input type="radio" class="form-check-input" name="modelo" value="rel_alunos_modelo_eventos" id="rd_ev" checked>Inscrições de eventos
                         </label>
+                        <div id="div_cb_presente" class="pb-2 pt-2">
+                          <input type="checkbox" name="cb_presente" id="cb_presente">&nbsp;Mostrar apenas os eventos que o aluno registrou presença.
+                        </div>
                       </div>
                       <div class="form-check">
                         <label class="form-check-label">
                           <input type="radio" class="form-check-input" name="modelo" value="rel_alunos_modelo_ch_total">Carga Horária Total
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="modelo" value="rel_alunos_modelo_ch_detalhada">Carga Horária Detalhada
                         </label>
                       </div>
                     </div>

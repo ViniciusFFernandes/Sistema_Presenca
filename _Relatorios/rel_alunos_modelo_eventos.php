@@ -24,8 +24,12 @@
             $sql = "SELECT ev_nome, DATE_FORMAT(ev_data, '%d/%m/%Y') as ev_data FROM presencas_eventos
                         JOIN alunos ON (alu_id = prev_alu_id)
                         JOIN eventos ON (ev_id = prev_ev_id)
-                      WHERE alu_id = {$_POST['alu_id']}
-                      ORDER BY ev_data";
+                      WHERE alu_id = " . $_POST['alu_id'];
+            if(isset($_POST["cb_presente"])){
+              $sql .= " AND ISNULL(prev_data_hora, '') <> ''";
+            }
+            $sql .= " ORDER BY ev_data";
+            
             $res = $db->consultar($sql);
         ?>
         <div class="container">
@@ -42,6 +46,10 @@
                           <th colspan="2"><?= $_POST["alu_nome"] ?></th>
                         </tr>
                         <?php
+                        if(!$res){ ?>
+                          <tr><td colspan="2">Não existem registros de eventos para o Aluno selecionado!</td></tr>
+                        <?php
+                        }
                           foreach($res as $reg){
                             ?>
                             <tr>

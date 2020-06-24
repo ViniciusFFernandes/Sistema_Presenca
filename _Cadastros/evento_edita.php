@@ -50,8 +50,9 @@
         //função usada para gerar e enviar os QR Codes atravez de uma solicitação assincrona do jquery ($.post)
         //
         //Desabilita e coloca um carregando nos botões de QR Code até que a operação seja finalizada
+        $("input[name=tdQrCode]").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
+        $("#btnGeraQr").html('<span class="spinner-border spinner-border-sm text-primary">Gerando...</span>');
         $("#btnGeraQr").attr("disabled", true);
-        $("#tdQrCode").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
         //
         //Executa a solicitação
         var ev_id = $("#ev_id").val();
@@ -73,7 +74,8 @@
             }
             //
             //Restaura os botões de QR Code na tela
-            $("#tdQrCode").html('<img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(' + prev_id + ')">');
+            $("input[name=tdQrCode]").html('<img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(' + prev_id + ')">');
+            $("#btnGeraQr").html('Gerar QR Codes <img src="../icones/qrcode.png">');
             $("#btnGeraQr").attr("disabled", false);
           }, "html")
       }
@@ -233,7 +235,7 @@
                           <td style="white-space: nowrap;" id="tdExcluiPresenca">
                             <img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)">
                           </td>
-                          <td style="white-space: nowrap;" id="tdQrCode">
+                          <td style="white-space: nowrap;" name="tdQrCode">
                             <img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(<?= $regMatriculas['prev_id'] ?>)">
                           </td>
                         </tr>

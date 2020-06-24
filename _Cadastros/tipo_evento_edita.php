@@ -15,10 +15,10 @@
     </head>
     <script>
       function excluirEvento(){
-        var operacao = document.getElementById("operacao");
-        var form = document.getElementById("form_edita");
-        operacao.value = 'Excluir';
-        form.submit();
+        //
+        //função usada para alterar o valor do campo operacao e executar o submit do form
+        $("#operacao").val('Excluir');
+        $("#form_edita").submit();
       }
     </script>  
     <body>

@@ -2,6 +2,7 @@
     include_once("../_BD/conecta_login.php");
     include_once("../funcoes/funcoes.php");
     //
+    //Verifica se o evento esta finalizado pois não poderá mais incluir alunos
     $sql = "SELECT * FROM eventos WHERE ev_id = " . $_REQUEST['ev_id'];
     $reg = $db->retornaUmReg($sql);
     if(strtotime($reg['ev_data'] . " " . $reg['ev_hora_fim']) <= strtotime(date("Y-m-d H:i"))){

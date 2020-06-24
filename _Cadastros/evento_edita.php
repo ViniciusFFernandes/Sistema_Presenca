@@ -15,46 +15,66 @@
     </head>
     <script>
       function excluirEvento(){
+        //
+        //função usada para alterar o valor do campo operacao e executar o submit do form
         $("#operacao").val('Excluir');
         $("#form_edita").submit();
       }
 
       function excluirMatricula(prev_id){
-        
+        //
+        //função usada para execluir uma matriculo atravez de uma solicitação assincrona do jquery ($.post)
+        //
+        //Define o botão de exclusão com um carregando ate finalizar a operação
         $("#tdExcluiPresenca").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
-
+        //
+        //Executa a solicitação
         $.post("evento_grava.php", {operacao: 'excluirMatricula', prev_id: prev_id},
           function(data){
             if(data == 'Ok'){
+              //
+              //Caso de certo avisa com um alert e remove a matrcula da tela
               alert("Matricula excluida com sucesso!");
               $("#matricula_" + prev_id).remove();
-
-              $("#tdExcluiPresenca").html('<img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)">');
             }else{
+              //
+              //Caso de erro avisa com um alert e restaura o botão de exclusão na tela
               alert("Erro ao excluir matricula!");
+              $("#tdExcluiPresenca").html('<img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)">');
             }
           }, "html");
       }
 
       function gerarQR(prev_id){
+        //
+        //função usada para gerar e enviar os QR Codes atravez de uma solicitação assincrona do jquery ($.post)
+        //
+        //Desabilita e coloca um carregando nos botões de QR Code até que a operação seja finalizada
         $("#btnGeraQr").attr("disabled", true);
         $("#tdQrCode").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
-
+        //
+        //Executa a solicitação
         var ev_id = $("#ev_id").val();
         $.post("evento_grava.php", 
           {operacao: "gerarQR", prev_id: prev_id, ev_id: ev_id},
           function(data){
             if(data == 'Ok'){
+              //
+              //Se der certo avisa na tela diferenciando se foi solicitado para a turma toda ou exclusico para um aluno
               if(prev_id == ''){
                 alert("QR codes do evento enviados com sucesso!");
               }else{
                 alert("QR code do aluno enviados com sucesso!");
               }
-              $("#tdQrCode").html('<img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(<?= $regMatriculas['prev_id'] ?>)">');
-              $("#btnGeraQr").attr("disabled", false);
             }else{
+              //
+              //Se der erro avisa na tela
               alert("Erro ao gerar QR code!")
             }
+            //
+            //Restaura os botões de QR Code na tela
+            $("#tdQrCode").html('<img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(' + prev_id + ')">');
+            $("#btnGeraQr").attr("disabled", false);
           }, "html")
       }
     </script>  
@@ -166,7 +186,9 @@
           </div>
           
           <?php  
-          if($_REQUEST['ev_id'] > 0){ 
+          if($_REQUEST['ev_id'] > 0){
+            //
+            //Caso esteja com algum evento em tela ira exibir os alunos matriculados para poder gerar os QR Codes 
             $sqlMatriculas = "SELECT * 
                     FROM presencas_eventos 
                       JOIN alunos ON (prev_alu_id = alu_id)

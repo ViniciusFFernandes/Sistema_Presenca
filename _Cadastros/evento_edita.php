@@ -50,8 +50,8 @@
         //função usada para gerar e enviar os QR Codes atravez de uma solicitação assincrona do jquery ($.post)
         //
         //Desabilita e coloca um carregando nos botões de QR Code até que a operação seja finalizada
-        $("input[name=tdQrCode]").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
-        $("#btnGeraQr").html('<span class="spinner-border spinner-border-sm text-primary">Gerando...</span>');
+        $("td[name=tdQrCode]").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
+        $("#btnGeraQr").html('<span class="spinner-border spinner-border-sm text-primary"></span>Gerando...');
         $("#btnGeraQr").attr("disabled", true);
         //
         //Executa a solicitação
@@ -74,7 +74,7 @@
             }
             //
             //Restaura os botões de QR Code na tela
-            $("input[name=tdQrCode]").html('<img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(' + prev_id + ')">');
+            $("td[name=tdQrCode]").html('<img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(' + prev_id + ')">');
             $("#btnGeraQr").html('Gerar QR Codes <img src="../icones/qrcode.png">');
             $("#btnGeraQr").attr("disabled", false);
           }, "html")

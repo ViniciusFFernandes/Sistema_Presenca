@@ -26,12 +26,12 @@
                         JOIN eventos ON (ev_id = prev_ev_id)
                       WHERE alu_id = {$_POST['alu_id']}
                       GROUP BY alu_id";
-            $res = $db->consultar($sql);
+            $reg = $db->retornaUmReg($sql);
         ?>
         <div class="container">
           <div class="card">
             <div class="card-header bg-primary text-light">
-              <b>Carga Horária Total</b>
+              <b>Relatório de Carga Horária</b>
               <span class="float-right light"><a href="./rel_alunos_sel.php"><img src="../icones/voltar.png" width="28px"></a></span>
             </div>
             <div class="card-body">
@@ -39,11 +39,11 @@
                     <div class="col-12 col-sm-12">
                       <table class="table">
                         <tr>
-                          <th colspan="2"><?= $_POST["alu_nome"] ?></th>
+                          <th colspan="2">Carga Horária Total</th>
                         </tr>
                         <tr>
-                          <td>Carga Horária Total</td>
-                          <td width="20%"><?= $reg['total'] ?></td>
+                          <td><?= $_POST["alu_nome"] ?></td>
+                          <td width="30%"><b><?= $reg['total'] ?> H</b></td>
                         </tr>
                       </table>
                     </div>

@@ -21,12 +21,12 @@
         <?php
             include_once("../menu.php");
 
-            $sql = "SELECT ev_nome, DATE_FORMAT(ev_data, '%d/%m/%Y') as ev_data FROM presencas_eventos
+            $sql = "SELECT ev_nome, DATE_FORMAT(ev_data, '%d/%m/%Y') as ev_data, prev_data_hora, ev_horas FROM presencas_eventos
                         JOIN alunos ON (alu_id = prev_alu_id)
                         JOIN eventos ON (ev_id = prev_ev_id)
                       WHERE alu_id = " . $_POST['alu_id'];
             if(isset($_POST["cb_presente"])){
-              $sql .= " AND ISNULL(prev_data_hora, '') <> ''";
+              $sql .= " AND prev_data_hora IS NOT NULL";
             }
             $sql .= " ORDER BY ev_data";
             
@@ -35,7 +35,7 @@
         <div class="container">
           <div class="card">
             <div class="card-header bg-primary text-light">
-              <b>Inscrições de Eventos</b>
+              <b>Relatório de Inscrições</b>
               <span class="float-right light"><a href="./rel_alunos_sel.php"><img src="../icones/voltar.png" width="28px"></a></span>
             </div>
             <div class="card-body">
@@ -43,24 +43,51 @@
                     <div class="col-12 col-sm-12">
                       <table class="table">
                         <tr>
-                          <th colspan="2"><?= $_POST["alu_nome"] ?></th>
+                          <th colspan="3"><?= $_POST["alu_nome"] ?></th>
                         </tr>
                         <?php
                         if(!$res){ ?>
-                          <tr><td colspan="2">Não existem registros de eventos para o Aluno selecionado!</td></tr>
+                          <tr><td colspan="3">Não existem registros de eventos para o Aluno selecionado!</td></tr>
                         <?php
                         }
+                          $total = 0;
                           foreach($res as $reg){
                             ?>
                             <tr>
                               <td><?= $reg['ev_nome'] ?></td>
                               <td width="20%"><?= $reg['ev_data'] ?></td>
+                              <td width="10%" align="right">
+                                <?php
+                                //
+                                //Verifica se a data da presença está vazia, caso esteja, significa que o aluno faltou.
+                                if(!empty($reg['prev_data_hora'])){
+                                  //
+                                  //totaliza a quantidade de horas dos eventos com presença.
+                                  $total += $reg['ev_horas'];
+
+                                  echo "<span class='text-success'><b>P</b></span>";
+                                }else{
+                                  echo "<span class='text-danger'><b>F</b></span>";
+                                }
+                                ?>
+                              </td>
                             </tr>
                             <?php
                           }
                         ?>
+                        <tr>
+                          <td colspan="3" align="right">Carga Horária Contabilizada: &emsp;<b><?= $total; ?> H</b></td>
+                        </tr>
+                        <tr>
+                          <td colspan="3" style="font-size: 10px;" align="right">
+                            <b><span class="text-success">P</span> - Presente &emsp;&emsp; <span class="text-danger">F</span> - Falta</b>
+                          </td>
+                        </tr>
                       </table>
                     </div>
+                </div>
+                <div class="row">
+                  
                 </div>
             </div>
           </div>

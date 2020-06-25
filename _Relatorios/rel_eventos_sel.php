@@ -2,7 +2,7 @@
   include_once("../_BD/conecta_login.php");
   $menuActive = 'Relatorios';
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <!-- Required meta tags -->
@@ -18,9 +18,9 @@
     <script>
       $(document).ready(function(){
                     // Atribui evento e função para limpeza dos campos
-                    $('#alu_nome').on('input', limpaCampos);
+                    $('#ev_nome').on('input', limpaCampos);
                     // Dispara o Autocomplete a partir do segundo caracter
-                    $( '#alu_nome' ).autocomplete({
+                    $( '#ev_nome' ).autocomplete({
                       minLength: 2,
                       source: function( request, response ) {
                           $.ajax({
@@ -28,12 +28,12 @@
                               dataType: 'json',
                               method: 'POST', 
                               data: {
-                                campoMostra: 'alu_nome',
-                                campoId: 'alu_id',
-                                tabela: 'alunos',
-                                where: ' WHERE alu_nome LIKE \'%' + $('#alu_nome').val() + '%\'',
+                                campoMostra: 'ev_nome',
+                                campoId: 'ev_id',
+                                tabela: 'eventos',
+                                where: ' WHERE ev_nome LIKE \'%' + $('#ev_nome').val() + '%\'',
                                 qteLimit : 10,
-                                consulta:  $('#alu_nome').val()
+                                consulta:  $('#ev_nome').val()
                               },
                               success: function(data) {
                                  response(data);
@@ -41,8 +41,8 @@
                           });
                       },
                       select: function(event, ui) {
-                          $('#alu_nome').val(ui.item.mostra);
-                          $('#alu_id').val(ui.item.id);
+                          $('#ev_nome').val(ui.item.mostra);
+                          $('#ev_id').val(ui.item.id);
                           return false;
                       }
                     })
@@ -53,30 +53,12 @@
                     };
                     // Função para limpar os campos caso a busca esteja vazia
                     function limpaCampos(){
-                       var busca = $('#alu_nome').val();
+                       var busca = $('#ev_nome').val();
                        if(busca == ''){
-                          $('#alu_nome').val(''); 
+                          $('#ev_nome').val(''); 
                        }
                     }
-
-                    $("input[name='modelo']").on( "click", function() {
-                      if($("input:checked" ).attr("id") == 'rd_ev'){
-                        $("#div_cb_presente").show();
-                      }else{
-                        $("#div_cb_presente").hide();
-                      }
-                    });
             })
-      function listaRelatorio(){
-        var mod_relatorio = $("input[name='modelo']:checked").val();
-        var nome = $("#alu_nome").val();
-        if(nome == ''){
-          alert("Escolha um aluno para listar o relatório!");
-          return;
-        }
-        $("#form_rel").attr("action", mod_relatorio + ".php");
-        $("#form_rel").submit();
-      }
     </script>  
     <body>
         <?php
@@ -85,43 +67,46 @@
         <div class="container">
           <div class="card">
             <div class="card-header bg-primary text-light">
-              <b>Relatório de Alunos</b>
+              <b>Relatório de Eventos</b>
             </div>
             <div class="card-body">
-              <form action="rel_alunos.php" method="post" id="form_rel">
+              <form action="rel_eventos.php" method="post" id="form_rel">
                 <div class="row" >
                     <div class="col-12 col-sm-12">
                       <div class="form-group">
-                        <label for="alu_nome">Aluno</label>
-                        <input type="text" class="form-control" id="alu_nome" name="alu_nome">
-                        <input type="hidden" name="alu_id" id="alu_id">
+                        <label for="alu_nome">Evento</label>
+                        <input type="text" class="form-control" id="ev_nome" name="ev_nome">
+                        <input type="hidden" name="ev_id" id="ev_id">
                       </div>
                     </div>
                 </div>
                 <div class="row">
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
-                      <label for="div_modelo">Modelo</label>
-                      <div class="form-check" id="div_modelo">
-                        <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="modelo" value="rel_alunos_modelo_eventos" id="rd_ev" checked>Inscrições de eventos
-                        </label>
-                        <div id="div_cb_presente" class="pb-2 pt-2">
-                          <input type="checkbox" name="cb_presente" id="cb_presente">&nbsp;Mostrar apenas as presenças
-                        </div>
-                      </div>
-                      <div class="form-check">
-                        <label class="form-check-label">
-                          <input type="radio" class="form-check-input" name="modelo" value="rel_alunos_modelo_ch_total">Carga Horária Total
-                        </label>
-                      </div>
+                      <label for="ev_tiev_id">Tipo do Evento</label>
+                      <select class="form-control" id="ev_tiev_id" name="ev_tiev_id">
+                        <option value="">Selecione o Tipo</option>
+                        <?php 
+                          $sqlTipos = "SELECT * FROM tipos_eventos";
+                          $resTipos = $db->consultar($sqlTipos);
+                          foreach($resTipos AS $regTipos){
+                            echo '<option value="' . $regTipos['tiev_id'] . '">' . $regTipos['tiev_descricao'] . '</option>';
+                          }
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                      <label for="ev_data">Data</label>
+                      <input type="date" class="form-control" id="ev_data" name="ev_data" value="">
                     </div>
                   </div>
                 </div>
                 <div class="row" >
                     <div class="col-12 col-sm-12">
                       <div class="form-group d-flex justify-content-center">
-                        <input type="button" class="btn btn-primary" name="btnLista" value="Listar" onclick="listaRelatorio()">
+                        <input type="submit" class="btn btn-primary" name="btnLista" value="Listar">
                       </div>
                     </div>
                 </div>

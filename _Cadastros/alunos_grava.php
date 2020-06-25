@@ -44,7 +44,7 @@
     if($_POST['operacao'] == 'Excluir'){
         //
         //Validações antes de executar a rotina
-        $sql = "SELECT ISNULL(COUNT(1), 0) AS qte FROM presencas_eventos WHERE prev_alu_id = " . $_POST['alu_id'];
+        $sql = "SELECT IFNULL(COUNT(1), 0) AS qte FROM presencas_eventos WHERE prev_alu_id = " . $_POST['alu_id'];
         $reg = $db->retornaUmReg($sql);
         if($reg['qte'] > 0){
             mostraErro("Não é permitido excluir um aluno matriculado em um ou mais eventos!", "Excluir");

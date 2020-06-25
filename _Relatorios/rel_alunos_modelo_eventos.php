@@ -1,5 +1,6 @@
 <?php
   include_once("../_BD/conecta_login.php");
+  include_once("../funcoes/funcoes.php");
   $menuActive = 'Relatorios';
 ?>
 <!doctype html>
@@ -21,7 +22,7 @@
         <?php
             include_once("../menu.php");
 
-            $sql = "SELECT ev_nome, DATE_FORMAT(ev_data, '%d/%m/%Y') as ev_data, prev_data_hora, ev_horas FROM presencas_eventos
+            $sql = "SELECT ev_nome, ev_data, prev_data_hora, ev_horas FROM presencas_eventos
                         JOIN alunos ON (alu_id = prev_alu_id)
                         JOIN eventos ON (ev_id = prev_ev_id)
                       WHERE alu_id = " . $_POST['alu_id'];
@@ -55,7 +56,7 @@
                             ?>
                             <tr>
                               <td><?= $reg['ev_nome'] ?></td>
-                              <td width="20%"><?= $reg['ev_data'] ?></td>
+                              <td width="20%"><?= converteData($reg['ev_data']) ?></td>
                               <td width="10%" align="right">
                                 <?php
                                 //
@@ -76,7 +77,7 @@
                           }
                         ?>
                         <tr>
-                          <td colspan="3" align="right">Carga Horária Contabilizada: &emsp;<b><?= $total; ?> H</b></td>
+                          <td colspan="3" align="right">C.H. Contabilizada: <b><?= $total; ?> H</b></td>
                         </tr>
                         <tr>
                           <td colspan="3" style="font-size: 10px;" align="right">
@@ -85,9 +86,6 @@
                         </tr>
                       </table>
                     </div>
-                </div>
-                <div class="row">
-                  
                 </div>
             </div>
           </div>

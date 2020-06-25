@@ -1,5 +1,6 @@
 <?php
   include_once("../_BD/conecta_login.php");
+  include_once("../funcoes/funcoes.php");
   $menuActive = 'Relatorios';
 ?>
 <!doctype html>
@@ -21,7 +22,7 @@
         <?php
             include_once("../menu.php");
 
-            $sql = "SELECT ev_nome, tiev_descricao, DATE_FORMAT(ev_data, '%d/%m/%Y') as ev_data, ev_horas
+            $sql = "SELECT ev_nome, tiev_descricao, ev_data, ev_horas
                         FROM eventos
                         JOIN  tipos_eventos ON (ev_tiev_id = tiev_id)
                       WHERE 1 = 1 ";
@@ -63,7 +64,7 @@
                         <tr>
                           <td><?= $reg["ev_nome"] ?></td>
                           <td><?= $reg["tiev_descricao"] ?></td>
-                          <td><?= $reg["ev_data"] ?></td>
+                          <td><?= converteData($reg["ev_data"]) ?></td>
                           <td><?= $reg['ev_horas'] ?> H</td>
                         </tr>
                         <?php

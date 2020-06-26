@@ -155,6 +155,8 @@
             $sql .= " AND prev_id = " . $_POST['prev_id'];
         }
         //
+        // echo $sql;
+        //
         //Efetua a leitura de todos ou do aluno que deve ser gerado e enviado o QR Code
         $res = $db->consultar($sql);
         foreach($res AS $reg){
@@ -193,7 +195,7 @@
             ";
             //
             //Inicia a classe para envio de e-mail
-            $mail = new PHPMailer();
+            $mail = new PHPMailer(true);
             //
             //Validação do envio
             try {
@@ -210,20 +212,17 @@
                 $mail->setFrom($SMTP_EMAIL);
                 $mail->addAddress($reg['alu_email']);
                 //
-                if($db->erro()){
-                    header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "&msg=Erro%20ao%incluir%20alunos%20no%20evento&msgTipo=erro");
-                    //Adicona a imagem como anexo para ser exibida no corpo
-                    $mail->AddEmbeddedImage("qrcode_tmp.png",$cid,$cid);
-                    $mail->isHTML(true);
-                    $mail->Subject = "QR Code do Evento " . $reg['ev_nome'];
-                    $mail->Body = $texto;
-                    //
-                    //Verifica se o email foi enviado
-                    if(!$mail->send()) {
-                        echo 'Erro';
-                        unlink("qrcode_tmp.png");
-                        exit;
-                    }
+                //Adicona a imagem como anexo para ser exibida no corpo
+                $mail->AddEmbeddedImage("qrcode_tmp.png",$cid,$cid);
+                $mail->isHTML(true);
+                $mail->Subject = "QR Code do Evento " . $reg['ev_nome'];
+                $mail->Body = $texto;
+                //
+                //Verifica se o email foi enviado
+                if(!$mail->send()) {
+                    echo 'Erro';
+                    unlink("qrcode_tmp.png");
+                    exit;
                 }
             } catch (Exception $e) {
                 //

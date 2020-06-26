@@ -74,7 +74,7 @@
             }
             //
             //Restaura os botões de QR Code na tela
-            $("td[name=tdQrCode]").html('<img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(' + prev_id + ')">');
+            $("td[name=tdQrCode]").html('<img src="../icones/qrcode.png" style="cursor: pointer;" onclick="gerarQR(\'' + prev_id + '\')">');
             $("#btnGeraQr").html('Gerar QR Codes <img src="../icones/qrcode.png">');
             $("#btnGeraQr").attr("disabled", false);
           }, "html")

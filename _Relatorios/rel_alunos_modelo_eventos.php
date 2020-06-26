@@ -47,10 +47,7 @@
                           <th colspan="3"><?= $_POST["alu_nome"] ?></th>
                         </tr>
                         <?php
-                        if(!$res){ ?>
-                          <tr><td colspan="3">Não existem registros de eventos para o Aluno selecionado!</td></tr>
-                        <?php
-                        }
+                        if($res){
                           $total = 0;
                           foreach($res as $reg){
                             ?>
@@ -84,6 +81,9 @@
                             <b><span class="text-success">P</span> - Presente &emsp;&emsp; <span class="text-danger">F</span> - Falta</b>
                           </td>
                         </tr>
+                      <?php }else{ ?>
+                      <tr><td colspan="3">Não existem registros de eventos para o Aluno selecionado!</td></tr>
+                      <?php } ?>
                       </table>
                     </div>
                 </div>

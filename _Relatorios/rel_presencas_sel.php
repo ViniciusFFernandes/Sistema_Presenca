@@ -62,7 +62,7 @@
       function listaRelatorio(){
         var evento = $("#ev_nome").val();
         if(evento == ''){
-          alert("Escolha um aluno para listar o relatório!");
+          alert("Escolha um evento para listar o relatório!");
           return;
         }
         $("#form_rel").submit();
@@ -78,7 +78,7 @@
               <b>Relatório de Presenças</b>
             </div>
             <div class="card-body">
-              <form action="rel_presencas.php" method="post" id="form_rel">
+              <form action="rel_presenca.php" method="post" id="form_rel">
                 <div class="row" >
                     <div class="col-12 col-sm-12">
                       <div class="form-group">

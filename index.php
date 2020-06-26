@@ -49,21 +49,21 @@
                 }, 'html');
             });
             Instascan.Camera.getCameras().then(cameras => {
-              if(cameras[1].length > 0 ){
-                scanner.start(cameras[1]);
+              if(cameras.length > 0 ){
+                  if(cameras[1] == undefined){
+                      scanner.start(cameras[0]);
+                  }else{
+                      scanner.start(cameras[1]);
+                  }
+                
                 $("#carregandoCamera").hide();
                 $("#scanQRCode").show();
               }else{
-                if(cameras[0].length > 0){
-                  scanner.start(cameras[0]);
-                  $("#carregandoCamera").hide();
-                  $("#scanQRCode").show();
-                }else{
-                  $("#divCamera").html("Nenhuma camera encontrada!<br>Verifique se está conectada e atualize a pagina!");
+                  $("#carregandoCamera").html("Nenhuma camera disponivel!<br>Verifique se está conectada e atualize a pagina!");
                 }
-                
-              }
-            });
+            }).catch(function (e) {
+                $("#carregandoCamera").html("Nenhuma camera encontrada!<br>Verifique se está conectada e atualize a pagina!");
+              });
           }
 
           function confirmaPresenca(){

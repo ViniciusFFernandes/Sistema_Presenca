@@ -34,7 +34,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?= $diretorioBase ?>_Relatorios/rel_alunos_sel.php">Aluno</a>
           <a class="dropdown-item" href="<?= $diretorioBase ?>_Relatorios/rel_eventos_sel.php">Evento</a>
-          <a class="dropdown-item" href="relatorio-presenca.php">Presen&ccedil;a</a>
+          <a class="dropdown-item" href="<?= $diretorioBase ?>_Relatorios/rel_presencas_sel.php">Presen&ccedil;a</a>
         </div>
       </li>
     </ul>

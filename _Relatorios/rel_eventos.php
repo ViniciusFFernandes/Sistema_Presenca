@@ -51,21 +51,24 @@
             <div class="card-body">
                 <div class="row" >
                     <div class="col-12 col-sm-12">
-                      <table class="table">
+                      <table class="table-sm" style="font-size: 0.9rem">
                         <tr>
-                          <th>Nome</th>
-                          <th>Tipo</th>
-                          <th>Data</th>
-                          <th>C.H.</th>
+                          <th class="p-0 m-0">Nome</th>
+                          <th class=" m-0">Tipo</th>
+                          <th class=" m-0">Data</th>
+                          <th class=" m-0">C.H.</th>
                         </tr>
                         <?php
+                        if(!$res){
+                          echo "<tr><td colspan='4'>Não existem registros!</td></tr>";
+                        }
                         foreach($res as $reg){
                         ?>
                         <tr>
-                          <td><?= $reg["ev_nome"] ?></td>
-                          <td><?= $reg["tiev_descricao"] ?></td>
-                          <td><?= converteData($reg["ev_data"]) ?></td>
-                          <td><?= $reg['ev_horas'] ?> H</td>
+                          <td class="p-0 m-0"><?= $reg["ev_nome"] ?></td>
+                          <td class=" m-0"><?= $reg["tiev_descricao"] ?></td>
+                          <td class=" m-0" width="25%"><?= converteData($reg["ev_data"]) ?></td>
+                          <td class=" m-0" width="15%"><?= $reg['ev_horas'] ?> H</td>
                         </tr>
                         <?php
                         } ?>

@@ -23,8 +23,8 @@
 
             $sql = "SELECT *
                         FROM eventos
-                        JOIN tipos_eventos ON (ev_tiev_id = tiev_id)
-                        JOIN alunos ON (ev_alu_id = alu_id)
+                        JOIN presencas_eventos ON (prev_ev_id = ev_id)
+                        JOIN alunos ON (prev_alu_id = alu_id)
                       WHERE ev_id = {$_POST['ev_id']}
                   ORDER BY alu_nome";
             

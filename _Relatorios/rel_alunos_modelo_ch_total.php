@@ -25,6 +25,7 @@
                         JOIN alunos ON (alu_id = prev_alu_id)
                         JOIN eventos ON (ev_id = prev_ev_id)
                       WHERE alu_id = {$_POST['alu_id']}
+                      AND prev_data_hora IS NOT NULL
                       GROUP BY alu_id";
             $reg = $db->retornaUmReg($sql);
         ?>
@@ -43,7 +44,7 @@
                         </tr>
                         <tr>
                           <td><?= $_POST["alu_nome"] ?></td>
-                          <td width="30%"><b><?= $reg['total'] ?> H</b></td>
+                          <td width="30%"><b><?= empty($reg['total']) ? "0" : $reg['total'] ?> H</b></td>
                         </tr>
                       </table>
                     </div>

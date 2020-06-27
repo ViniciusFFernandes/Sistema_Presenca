@@ -72,6 +72,11 @@
                         </tr>
                         <?php
                         } ?>
+                        <tr>
+                          <td colspan="3" style="font-size: 10px;" align="right">
+                            <b><span class="text-success">P</span> - Presente &emsp;&emsp; <span class="text-danger">F</span> - Falta</b>
+                          </td>
+                        </tr>
                       </table>
                     </div>
                 </div>

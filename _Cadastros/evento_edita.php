@@ -26,7 +26,7 @@
         //função usada para execluir uma matriculo atravez de uma solicitação assincrona do jquery ($.post)
         //
         //Define o botão de exclusão com um carregando ate finalizar a operação
-        $("#tdExcluiPresenca").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
+        $("td[name=tdExcluiPresenca]").html('<span class="spinner-border spinner-border-sm text-primary"></span>');
         //
         //Executa a solicitação
         $.post("evento_grava.php", {operacao: 'excluirMatricula', prev_id: prev_id},
@@ -40,8 +40,8 @@
               //
               //Caso de erro avisa com um alert e restaura o botão de exclusão na tela
               alert("Erro ao excluir matricula!");
-              $("#tdExcluiPresenca").html('<img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)">');
             }
+            $("td[name=tdExcluiPresenca]").html('<img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(' + prev_id + ')">');
           }, "html");
       }
 
@@ -232,7 +232,7 @@
                         <tr id="matricula_<?= $regMatriculas['prev_id'] ?>">
                           <td><?= $regMatriculas['alu_nome'] ?></td>
                           <td><?= $regMatriculas['alu_curso'] ?></td>
-                          <td style="white-space: nowrap;" id="tdExcluiPresenca">
+                          <td style="white-space: nowrap;" id="tdExcluiPresenca" name="tdExcluiPresenca">
                             <img src="../icones/excluir.png" style="cursor: pointer;" onclick="excluirMatricula(<?= $regMatriculas['prev_id'] ?>)">
                           </td>
                           <td style="white-space: nowrap;" name="tdQrCode">

@@ -81,7 +81,7 @@
         if($db->erro()){
             //
             //Caso a rotina der error retorna uma mensagem de erro
-            header("Location: ../_Cadastros/eve'nto_edita.php?ev_id=" . $_POST['ev_id'] . "&msg=Erro%20ao%20excluir%20evento&msgTipo=erro");
+            header("Location: ../_Cadastros/evento_edita.php?ev_id=" . $_POST['ev_id'] . "&msg=Erro%20ao%20excluir%20evento&msgTipo=erro");
             exit;
         }else{
             //
@@ -195,7 +195,7 @@
             ";
             //
             //Inicia a classe para envio de e-mail
-            $mail = new PHPMailer(true);
+            $mail = new PHPMailer();
             //
             //Validação do envio
             try {

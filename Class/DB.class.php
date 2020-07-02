@@ -35,12 +35,7 @@
 					$this->conexao->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 				}
 			}catch(PDOException $e){
-				if(preg_match('/Unknown database/', $e->getMessage())){
-					//Cria o banco e suas tabelas
-					$this->criarBase();
-				}else{
-					echo 'ERROR: ' . $e->getMessage();
-				}
+				echo 'ERROR: ' . $e->getMessage();
 			}
 		}
 		//
@@ -57,8 +52,6 @@
 		//Metodo usado para executar select
 		public function consultar($sql){
 		  	$sql = trim($sql);
-		  	$this->erro = '';
-		  	$this->msgErro = '';
 			try{
 				$query = $this->conexao->query($sql);
 				$query->execute();
@@ -66,10 +59,9 @@
 				$query->closeCursor();
 				$this->erro = false;
 			}catch(PDOException $e) {
-				$resultado = NULL;
+				$dados = NULL;
 				$this->erro = true;
 				$this->msgErro = $e->getMessage();
-				$mensagem  = $e->getMessage();				
 			}
 			//
 			//print_r($dados);
@@ -91,7 +83,6 @@
 				$resultado = NULL;
 				$this->erro = true;
 				$this->msgErro = $e->getMessage();
-				$mensagem  = $e->getMessage();
 			}
 		 	return $resultado;
 		}
@@ -107,7 +98,6 @@
 			}catch(PDOException $e) {
 				$this->erro = true;
 				$this->msgErro = $e->getMessage();
-				$mensagem  = $e->getMessage();				
 			}
 		}
 		//

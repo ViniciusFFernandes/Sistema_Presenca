@@ -37,6 +37,9 @@
           <a class="dropdown-item" href="<?= $diretorioBase ?>_Relatorios/rel_presencas_sel.php">Presen&ccedil;a</a>
         </div>
       </li>
+      <li class="nav-item  <?php if($menuActive == 'Validador') echo "active"; ?> ">
+        <a class="nav-link" href="<?= $diretorioBase ?>validador.php">Validador <span class="sr-only">(current)</span></a>
+      </li>
     </ul>
   </div>
 </nav>

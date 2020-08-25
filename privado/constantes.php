@@ -4,6 +4,7 @@
     $USUARIO = 'root';
     $SENHA = 'root';
     $DB_NAME = 'rafael';
+    $ENDERECO_SISTEMA = '';
     //
     $SMTP_HOST = 'smtp.gmail.com';
     $SMTP_LOGIN = 'vnferna@gmail.com';

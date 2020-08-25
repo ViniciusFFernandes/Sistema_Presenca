@@ -67,6 +67,19 @@
         }
         $("#form_rel").submit();
       }
+
+      function emitirCertificados(){
+        $("#corpoModalCertificado").html('<center><img src="../icones/carregando_engrenagens.gif" width="25px"> Emitindo Certificados...</center>');
+        //
+        if($("#ev_id").val() <= 0){
+          alert("Erro ao emitir certificados!\nInforme um envento!");
+        }
+        //
+        $.post("emitir_certificado.php", {ev_id: $("#ev_id").val()}, 
+        function(data){
+          $("#corpoModalCertificado").html(data);
+        }, 'html')
+      }
     </script>  
     <body>
         <?php
@@ -92,10 +105,25 @@
                     <div class="col-12 col-sm-12">
                       <div class="form-group d-flex justify-content-center">
                         <input type="button" class="btn btn-primary" name="btnLista" value="Listar" onclick="listaRelatorio()">
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCertificados" name="btnEnviaCertificados" value="Emitir Certificados" onclick="emitirCertificados()">
                       </div>
                     </div>
                 </div>
               </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal" id="modalCertificados">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Emição de certificado</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body" id="corpoModalCertificado">
+              </div>
             </div>
           </div>
         </div>

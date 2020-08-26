@@ -19,6 +19,7 @@ Create table eventos (
 	ev_data date,
 	ev_hora_inicio time,
 	ev_hora_fim time,
+	ev_local varchar(100),
  	Primary Key (ev_id)) ENGINE = INNODB;
 
 Create table presencas_eventos (

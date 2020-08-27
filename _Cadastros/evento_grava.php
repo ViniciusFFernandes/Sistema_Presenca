@@ -169,28 +169,28 @@
             //
             $texto="
             <html>
-            <body>
-            <div>
-            <font size=3>
-            Ola {$reg['alu_nome']},
-            </font>
-            </div>
-            <div>
-            <font size=3>
-            Segue a baixo seu QR Code de autetificação para o evento {$reg['ev_nome']} 
-            </font>
-            </div>
-            </ br>
-            </ br>
-            <div align='center'>
-            <img src=\"cid:$cid\">
-            </div>
-            <div>
-            <font size=2>
-            Não esqueça de comparecer ao evento com este e-mail em mãos!
-            </font>
-            </div>
-            </body>
+                <body>
+                    <div>
+                        <font size=3>
+                            Ola {$reg['alu_nome']},
+                        </font>
+                    </div>
+                    <div>
+                        <font size=3>
+                            Segue a baixo seu QR Code de autetificação para o evento {$reg['ev_nome']} 
+                        </font>
+                    </div>
+                    </ br>
+                    </ br>
+                    <div align='center'>
+                        <img src=\"cid:$cid\">
+                    </div>
+                    <div>
+                        <font size=2>
+                            Não esqueça de comparecer ao evento com este e-mail em mãos!
+                        </font>
+                    </div>
+                </body>
             </html>
             ";
             //

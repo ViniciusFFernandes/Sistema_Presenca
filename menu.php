@@ -38,7 +38,7 @@
         </div>
       </li>
       <li class="nav-item  <?php if($menuActive == 'Validador') echo "active"; ?> ">
-        <a class="nav-link" href="<?= $diretorioBase ?>validador.php">Validador <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="<?= $diretorioBase ?>_Validador/validador.php" target="_blank">Validador <span class="sr-only">(current)</span></a>
       </li>
     </ul>
   </div>

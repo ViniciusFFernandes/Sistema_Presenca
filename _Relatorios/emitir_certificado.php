@@ -36,7 +36,7 @@
         $relatorioEnvio .= "Nenhum certificado encontrado para emissão!";
         exit;
     }
-    $relatorioEnvio .= "Certificado Emetidos:";
+    $relatorioEnvio .= "Certificados Emetidos:";
     foreach($res as $reg){
         //
         //Escreve de quem é o certificado para exibir no final

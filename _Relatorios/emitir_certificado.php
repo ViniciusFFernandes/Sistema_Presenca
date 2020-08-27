@@ -86,7 +86,7 @@
                         bottom:   0px;
                         left:     0px;
                         width:    30cm;
-                        height:   25cm;
+                        height:   21cm;
                         z-index:  -1000;
                     }
                 </style>

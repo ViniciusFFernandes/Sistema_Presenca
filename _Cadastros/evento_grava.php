@@ -32,6 +32,9 @@
         if(empty($_POST['ev_hora_fim'])){
             mostraErro("O horario de fim do evento não pode ser informado em branco!", "Gravar");
         }
+        if(empty($_POST['ev_local'])){
+            mostraErro("O local do evento não pode ser informado em branco!", "Gravar");
+        }
         //
         //inicio da rotina para inserir ou alterar os registros
         $db->setTabela("eventos", "ev_id");
@@ -44,6 +47,7 @@
         $dados['ev_data']   	    = sgr($_POST['ev_data']);
         $dados['ev_hora_inicio'] 	= sgr($_POST['ev_hora_inicio']);
         $dados['ev_hora_fim']   	= sgr($_POST['ev_hora_fim']);
+        $dados['ev_local']   	    = sgr($_POST['ev_local']);
         $db->gravarInserir($dados);
         //
         if($db->erro()){

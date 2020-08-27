@@ -170,6 +170,12 @@
                         <input type="time" class="form-control" id="ev_hora_fim" name="ev_hora_fim" value="<?= $reg['ev_hora_fim'] ?>">
                       </div>
                     </div>
+                    <div class="col-12 col-sm-6">
+                      <div class="form-group">
+                        <label for="ev_local">Local</label>
+                        <input type="text" class="form-control" id="ev_local" name="ev_local" placeholder="Digite o Local do Evento" value="<?= $reg['ev_local'] ?>">
+                      </div>
+                    </div>
                     <div class="col-12" align="center">
                       <button type="submit" class="btn btn-success">Gravar</button>
                       <?php

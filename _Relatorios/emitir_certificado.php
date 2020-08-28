@@ -85,7 +85,7 @@
                         position: fixed;
                         bottom:   0px;
                         left:     0px;
-                        width:    30cm;
+                        width:    29.7cm;
                         height:   21cm;
                         z-index:  -1000;
                     }
@@ -102,6 +102,15 @@
                             Certificamos que ' . $reg['alu_nome'] . ' participou do evento ' . $reg['ev_nome'] . ', 
                             realizada no dia ' . converteData($reg['ev_data']) . ', com carga horaria de ' . $reg['ev_horas'] . ' horas, 
                             no ' . $reg['ev_local'] . '.
+                        </div>
+                        <div style="font-size: 28px; text-align: justify; width: 70%; margin: auto; padding-top:30mm;">
+                            <center>' . $reg['ev_responsavel'] . '</center>
+                        </div>
+                        <div style="font-size: 28px; text-align: justify; width: 70%; margin: auto; padding-top:20mm;">
+                            <center>Código de validação: ' . $reg['prev_cod_certificado'] . '</center>
+                        </div>
+                        <div style="font-size: 28px; text-align: justify; width: 70%; margin: auto;">
+                            <center>Para validar acesse: ' . $LINK_VALIDADOR . '</center>
                         </div>
                     </div>
                 </main> 

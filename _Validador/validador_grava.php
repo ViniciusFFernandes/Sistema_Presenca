@@ -14,7 +14,7 @@
     if(!$res){ ?>
       <div class="row">
         <div class="col-12">
-            Código de certificado inválido! <br>
+            <b class="text-dange">Código de certificado inválido!</b> <br>
             Nenhum certificado foi encontrado com este código!
         </div>
       </div>
@@ -25,7 +25,7 @@
 
         <div class="row justify-content-md-center">
             <div class="col-12 text-center">
-                <b>Código valido!</b>
+                <b class="text-success">Código valido!</b>
             </div>
             <div class="col-12 col-md-4 card m-1 ">
                 <div class="row card-header bg-primary text-light">

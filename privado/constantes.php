@@ -4,7 +4,8 @@
     $USUARIO = 'root';
     $SENHA = 'root';
     $DB_NAME = 'rafael';
-    $ENDERECO_SISTEMA = '';
+    $ENDERECO_SISTEMA = 'localhost/Rafael/';
+    $LINK_VALIDADOR = $ENDERECO_SISTEMA . '_Validador/validador.php';
     //
     $SMTP_HOST = 'smtp.gmail.com';
     $SMTP_LOGIN = 'vnferna@gmail.com';

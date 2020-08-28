@@ -30,6 +30,7 @@ Create table presencas_eventos (
  	Primary Key (prev_id)) ENGINE = INNODB;
 
 Alter table presencas_eventos ADD prev_cod_certificado Varchar(255) NULL;
+Alter table eventos ADD ev_local Varchar(255) NULL;
 -- Alter table Alunos add Foreign Key (sis_id) references Sistema (sis_id) on delete  restrict on update  restrict;
 -- Alter table Palestras add Foreign Key (sis_id) references Sistema (sis_id) on delete  restrict on update  restrict;
 

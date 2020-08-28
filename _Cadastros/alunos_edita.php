@@ -20,6 +20,20 @@
         $("#operacao").val('Excluir');
         $("#form_edita").submit();
       }
+
+      function emitirCertificados(alu_id, ev_id){
+        $("#div_certificado").html('Emitindo Certificado...');
+        //
+        $.post("../_Relatorios/emitir_certificado.php", {ev_id: ev_id, alu_id: alu_id}, 
+        function(data){
+          if(data == 'Enviado'){
+            $("#div_certificado").html(data);
+          }else{
+            alert("Erro ao emitir certificado!\n" + data);
+            $("#div_certificado").html("Certificado");
+          }
+        }, 'html')
+      }
     </script>  
     <body>
         <?php
@@ -89,6 +103,52 @@
               </form>
             </div>
           </div>
+          <?php
+          if($_REQUEST['alu_id'] > 0) { 
+            $sql = "SELECT * FROM eventos 
+                      JOIN presencas_eventos ON (prev_ev_id = ev_id)
+                      WHERE prev_alu_id = " . $_REQUEST['alu_id'] . "
+                      ORDER BY prev_data_hora";
+            
+            $res = $db->consultar($sql);
+
+            if($res){
+            ?>
+            <div class="card mt-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-sm-12">
+                    <table class="table table-striped">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>Evento</th>
+                          <th>C.H.</th>
+                          <th>&nbsp;</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php foreach($res as $reg){ ?>
+                          <tr>
+                            <td><?= $reg['ev_nome'] ?></td>
+                            <td><?= $reg['ev_horas'] ?></td>
+                            <td align="right">
+                              <?php
+                              if(!empty($reg['prev_data_hora'])){
+                                echo "<kbd id='div_certificado'><span onclick='emitirCertificados(" . $reg['prev_alu_id'] . "," . $reg['prev_ev_id'] . ")'>Certificado</span></kbd>";
+                              }
+                              ?>
+                            </td>
+                          </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php
+            }
+          } ?>
         </div>
     </body>
 </html>

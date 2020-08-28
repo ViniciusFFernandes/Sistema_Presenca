@@ -30,6 +30,8 @@
     // 
     $sql .= " ORDER BY alu_nome";
 
+    //echo $sql;
+
     $res = $db->consultar($sql);
 
     if(!$res){ 
@@ -147,7 +149,7 @@
             ";
         //
         //Inicia a classe para envio de e-mail
-        $mail = new PHPMailer();
+        $mail = new PHPMailer(true);
         //
         //Validação do envio
         try {
@@ -191,7 +193,11 @@
     //
     //Limpa qualquer saida e imprime o relatorio de envio
     ob_clean();
-    echo $relatorioEnvio;
+    if(!empty($_POST['alu_id'])){
+        echo "Enviado";
+    }else{
+        echo $relatorioEnvio;
+    }
 
 
     function geraCodigoCertificado($reg){

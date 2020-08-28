@@ -72,7 +72,7 @@
         $("#corpoModalCertificado").html('<center><img src="../icones/carregando_engrenagens.gif" width="25px"> Emitindo Certificados...</center>');
         //
         if($("#ev_id").val() <= 0){
-          alert("Erro ao emitir certificados!\nInforme um envento!");
+          alert("Erro ao emitir certificados!\nInforme um evento!");
         }
         //
         $.post("emitir_certificado.php", {ev_id: $("#ev_id").val()}, 

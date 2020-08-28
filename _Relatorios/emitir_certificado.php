@@ -195,8 +195,10 @@
     ob_clean();
     if(!empty($_POST['alu_id'])){
         echo "Enviado";
+        exit;
     }else{
         echo $relatorioEnvio;
+        exit;
     }
 
 

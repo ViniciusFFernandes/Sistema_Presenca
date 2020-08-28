@@ -199,7 +199,7 @@
             ";
             //
             //Inicia a classe para envio de e-mail
-            $mail = new PHPMailer();
+            $mail = new PHPMailer(true);
             //
             //Validação do envio
             try {

@@ -21,16 +21,16 @@
         $("#form_edita").submit();
       }
 
-      function emitirCertificados(alu_id, ev_id){
-        $("#div_certificado").html('Emitindo Certificado...');
+      function emitirCertificados(alu_id, ev_id, prev_id){
+        $("#div_certificado_" + prev_id).html('Emitindo Certificado...');
         //
         $.post("../_Relatorios/emitir_certificado.php", {ev_id: ev_id, alu_id: alu_id}, 
         function(data){
           if(data == 'Enviado'){
-            $("#div_certificado").html(data);
+            $("#div_certificado_" + prev_id).html(data);
           }else{
             alert("Erro ao emitir certificado!\n" + data);
-            $("#div_certificado").html("Certificado");
+            $("#div_certificado_" + prev_id).html("Certificado");
           }
         }, 'html')
       }
@@ -134,7 +134,7 @@
                             <td align="right">
                               <?php
                               if(!empty($reg['prev_data_hora'])){
-                                echo "<kbd id='div_certificado'><span onclick='emitirCertificados(" . $reg['prev_alu_id'] . "," . $reg['prev_ev_id'] . ")'>Certificado</span></kbd>";
+                                echo "<kbd id='div_certificado_" . $reg["prev_id"] . "'><span onclick='emitirCertificados(" . $reg['prev_alu_id'] . "," . $reg['prev_ev_id'] . "," . $reg['prev_id'] . ")'>Certificado</span></kbd>";
                               }
                               ?>
                             </td>

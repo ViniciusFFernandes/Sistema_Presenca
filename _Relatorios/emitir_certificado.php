@@ -161,6 +161,7 @@
             $mail->Username = $SMTP_LOGIN;
             $mail->Password = $SMTP_SENHA;
             $mail->Port = $SMTP_PORTA;
+            $mail->CharSet = "UTF-8";
             //
             //Define o e-mail de envio e para qual sera enviado
             $mail->setFrom($SMTP_EMAIL);
@@ -182,7 +183,7 @@
         } catch (Exception $e) {
             //
             //Executado caso ocorra algum erro na classe de envio
-            // $relatorioEnvio .= "Erro ao enviar mensagem: {$mail->ErrorInfo}";
+            $relatorioEnvio .= "Erro ao enviar mensagem: {$mail->ErrorInfo}";
             $relatorioEnvio .= "<font color='red'><b>Erro</b></font>";
             unlink("certificado.pdf");
         }

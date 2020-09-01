@@ -134,7 +134,7 @@
                             <td align="right">
                               <?php
                               if(!empty($reg['prev_data_hora'])){
-                                echo "<kbd id='div_certificado_" . $reg["prev_id"] . "'><span onclick='emitirCertificados(" . $reg['prev_alu_id'] . "," . $reg['prev_ev_id'] . "," . $reg['prev_id'] . ")'>Certificado</span></kbd>";
+                                echo "<kbd style='cursor: pointer;' id='div_certificado_" . $reg["prev_id"] . "'><span onclick='emitirCertificados(" . $reg['prev_alu_id'] . "," . $reg['prev_ev_id'] . "," . $reg['prev_id'] . ")'>Certificado</span></kbd>";
                               }
                               ?>
                             </td>

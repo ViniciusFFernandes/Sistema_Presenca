@@ -183,7 +183,7 @@
         } catch (Exception $e) {
             //
             //Executado caso ocorra algum erro na classe de envio
-            $relatorioEnvio .= "Erro ao enviar mensagem: {$mail->ErrorInfo}";
+            //$relatorioEnvio .= "Erro ao enviar mensagem: {$mail->ErrorInfo}";
             $relatorioEnvio .= "<font color='red'><b>Erro</b></font>";
             unlink("certificado.pdf");
         }

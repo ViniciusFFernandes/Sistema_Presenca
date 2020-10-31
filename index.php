@@ -14,8 +14,33 @@
         ?>
         <script src="js/instascan.min.js"></script>
         <script>
+          tipo = '';
+          function confirmaPorCodigo(){
+            $("#linhaCodigo").show();
+            $("#carregandoCamera").hide();
+            $("#linhaCamera").hide();
+            $("#scanQRCode").hide();
+            $("#linhaDados").hide();
+            $("#modalFooter").hide();
+            $("#prev_id").val('');
+            $("#modalTitulo").html("Informe o código");
+          }
+
+          function confereCodigo(){
+            if($("#prev_id").val() <= 0){
+              alert("Código não informado!");
+              return;
+            }
+            $("#linhaCodigo").hide();
+            $("#modalTitulo").html("Confira os dados do aluno");
+            $("#linhaDados").show();
+            tipo = 'codigo';
+            buscaPresencaEvento($("#prev_id").val());
+          }
+
           function abreCamera(){
             $("#carregandoCamera").show();
+            $("#linhaCodigo").hide();
             $("#linhaCamera").show();
             $("#scanQRCode").hide();
             $("#linhaDados").hide();
@@ -37,16 +62,8 @@
                 $("#modalTitulo").html("Confira os dados do aluno");
                 $("#linhaDados").show();
                 $("#prev_id").val(content);
-                $.post("_Cadastros/presenca_grava.php", {operacao: 'buscarDados', prev_id: content},
-                function(data){
-                  if(data == "Evento Finalizado"){
-                    alert("Este evento já foi finalizado!\nNão é possivel gerar presença!");
-                    abreCamera();
-                  }else{
-                    $("#divDados").html(data);
-                    $("#modalFooter").show();
-                  }
-                }, 'html');
+                tipo = 'camera';
+                buscaPresencaEvento(content);
             });
             Instascan.Camera.getCameras().then(cameras => {
               if(cameras.length > 0 ){
@@ -66,20 +83,44 @@
               });
           }
 
-          function confirmaPresenca(){
+          function confirmaPresenca(tipo){
             $.post("_Cadastros/presenca_grava.php", {operacao: 'gravarPresenca', prev_id: $("#prev_id").val()},
                 function(data){
                   if(data == 'Ok'){
                     alert("Presença registrada!");
-                    abreCamera(); 
+                    recarrega()
                   }else{
                     alert("Erro ao gerar presença");
+                    return;
                   }
                 }, 'html');
           }
 
-          function cancelaPresenca(){
-            abreCamera();
+          function recarrega(){
+            if(tipo == 'camera'){
+              abreCamera(); 
+            }
+            if(tipo == 'codigo'){
+              confirmaPorCodigo();
+            }
+          }
+
+          function buscaPresencaEvento(id_prev){
+            $.post("_Cadastros/presenca_grava.php", {operacao: 'buscarDados', prev_id: id_prev},
+                function(data){
+                  if(data == "Evento Finalizado"){
+                    alert("Este evento já foi finalizado!\nNão é possivel gerar presença!");
+                    if(tipo == 'camera'){
+                      abreCamera(); 
+                    }
+                    if(tipo == 'codigo'){
+                      confirmaPorCodigo();
+                    }
+                  }else{
+                    $("#divDados").html(data);
+                    $("#modalFooter").show();
+                  }
+                }, 'html');
           }
         </script>
     </head>
@@ -96,7 +137,11 @@
                     <button type="button" onclick="abreCamera()" class="btn btn-primary" data-toggle="modal" data-target="#modalQRCode">Escanear QR Code</button>
                 </div>
             </div>
-            
+            <div class="row pt-2" align="center">
+                <div class="col-12">
+                    <button type="button" onclick="confirmaPorCodigo()" class="btn btn-primary" data-toggle="modal" data-target="#modalQRCode">Confirmação por Código</button>
+                </div>
+            </div>
         </div>
     </body>
 </html>
@@ -114,7 +159,14 @@
 
       <!-- body -->
       <div class="modal-body">
-          <input type="hidden" id="prev_id">
+        <div class="row" id="linhaCodigo" style="display:none;">
+          <div class="col-12 input-group">
+            <input type="text" id="prev_id" class="form-control" placeholder="Código">
+            <div class="input-group-append">
+              <button class="btn btn-primary light" type="button" onclick="confereCodigo()"><img src="icones/lupaPrimary.png" width="24px"></button>  
+            </div>
+          </div>
+        </div>
         <div class="row" id="linhaCamera">
           <div class="col-12">
             <span id="carregandoCamera"><span class="spinner-border spinner-border-sm text-primary"></span> Buscando camera...</span>
@@ -130,7 +182,7 @@
 
       <!-- footer -->
       <div class="modal-footer" style="display:none;" id="modalFooter">
-        <button type="button" class="btn btn-danger" onclick="cancelaPresenca()">Cancelar</button>
+        <button type="button" class="btn btn-danger" onclick="recarrega()">Cancelar</button>
         <button type="button" class="btn btn-success" onclick="confirmaPresenca()">Confirmar</button>
       </div>
 

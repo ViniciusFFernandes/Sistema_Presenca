@@ -188,10 +188,17 @@
                     </ br>
                     <div align='center'>
                         <img src=\"cid:$cid\">
+                        <br>
+                        <span size=3>
+                            <b>Código da Inscrição: {$reg['prev_id']}</b>
+                        </span>
+                        <br>
+                        <br>
                     </div>
                     <div>
                         <font size=2>
-                            Não esqueça de comparecer ao evento com este e-mail em mãos!
+                            Não esqueça de comparecer ao evento com este e-mail em mãos!<br>
+                            A presença também poderá ser verificada informando seu código de inscrição!
                         </font>
                     </div>
                 </body>

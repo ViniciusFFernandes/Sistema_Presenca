@@ -176,7 +176,7 @@
             //Verifica se o email foi enviado
             if(!$mail->send()) {
                 $relatorioEnvio .= "<font color='red'><b>Erro</b></font>";
-                unlink("certificado.pdf");
+                // unlink("certificado.pdf");
                 exit;
             }
             $relatorioEnvio .= "<font color='green'><b>Ok</b></font>";
@@ -185,11 +185,11 @@
             //Executado caso ocorra algum erro na classe de envio
             //$relatorioEnvio .= "Erro ao enviar mensagem: {$mail->ErrorInfo}";
             $relatorioEnvio .= "<font color='red'><b>Erro</b></font>";
-            unlink("certificado.pdf");
+            // unlink("certificado.pdf");
         }
         //
         //Apaga o certificado gerada pois o sistema não armazena os mesmos
-        unlink("certificado.pdf");
+        // unlink("certificado.pdf");
     }
     //
     //Limpa qualquer saida e imprime o relatorio de envio

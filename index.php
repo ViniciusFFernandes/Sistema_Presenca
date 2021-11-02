@@ -67,10 +67,10 @@
             });
             Instascan.Camera.getCameras().then(cameras => {
               if(cameras.length > 0 ){
-                  if(cameras[1] == undefined){
-                      scanner.start(cameras[0]);
-                  }else{
+                  if(cameras[0] == undefined){
                       scanner.start(cameras[1]);
+                  }else{
+                      scanner.start(cameras[0]);
                   }
                 
                 $("#carregandoCamera").hide();
